@@ -12,13 +12,16 @@
 
 class Board {
 //TODO reverse access to private before submission
-public:
+    int id;
     std::array<Player,9> cursor;
     Player player1;
     Player player2;
-
+public:
     Board();
     Board(const Player&, const Player&);
+    Board(const Player&, const Player&, int id);
+    int getId() const;
+    void setId(int id);
     const std::array<Player, 9> getCursor() const;
     void setCursor(const std::array<Player, 9> &cursor);
     void setPlayer(std::string&, std::string&, int);

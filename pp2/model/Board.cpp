@@ -5,13 +5,19 @@
 #include <iostream>
 #include "Board.h"
 
-Board::Board() {
+Board::Board():id(-1) {
     cursor = {Player('1'),Player('2'),Player('3'),Player('4'),Player('5'),Player('6'),Player('7'),Player('8'),Player('9')};
     player1 = Player("dummy",'d');
     player2 = Player("dummy",'d');
 }
 
-Board::Board(const Player &p1, const Player &p2) {
+Board::Board(const Player &p1, const Player &p2):id(-1) {
+    cursor = {Player('1'),Player('2'),Player('3'),Player('4'),Player('5'),Player('6'),Player('7'),Player('8'),Player('9')};
+    player1 = p1;
+    player2 = p2;
+}
+
+Board::Board(const Player &p1, const Player &p2, int id): id(id) {
     cursor = {Player('1'),Player('2'),Player('3'),Player('4'),Player('5'),Player('6'),Player('7'),Player('8'),Player('9')};
     player1 = p1;
     player2 = p2;
@@ -23,6 +29,14 @@ const std::array<Player, 9> Board::getCursor() const{
 
 void Board::setCursor(const std::array<Player, 9> &cursor) {
     Board::cursor = cursor;
+}
+
+int Board::getId() const {
+    return id;
+}
+
+void Board::setId(int id) {
+    Board::id = id;
 }
 
 //int main(){
