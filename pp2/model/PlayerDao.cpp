@@ -5,6 +5,9 @@
 #include <fstream>
 #include <iostream>
 #include "PlayerDao.h"
+#include "../lib/rapidjson/document.h"
+#include "../lib/rapidjson/writer.h"
+#include "../lib/rapidjson/stringbuffer.h"
 
 bool PlayerDao::createNewPlayer(Player &player) {
     if(isPresent(player.getName())) return false;
@@ -74,7 +77,6 @@ bool PlayerDao::isPresent(const std::string& name) {
         file << "not good"; file.close();
        // std::cout << "Unable to find" + fileName + "\n";
         return false;
-
     }
 }
 

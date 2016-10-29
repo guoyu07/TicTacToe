@@ -13,6 +13,8 @@ class BigBoard {
     Player player1, player2;
     std::array<Board,9> lBoard;
 public:
+    BigBoard();
+
     BigBoard(const Player &player1, const Player &player2);
 
     const std::array<Board, 9> &getLBoard() const;
