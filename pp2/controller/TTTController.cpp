@@ -58,7 +58,7 @@ std::string TTTController::getPlayerName(int currentPlayer) {
     }
 }
 
-//done
+//TODO
 std::string TTTController::getAllSavedPlayers() {
     PlayerDao playerDao;
     std::list<Player> playerList = playerDao.getAllPlayers();
@@ -76,9 +76,10 @@ std::string TTTController::getAllSavedPlayers() {
 //done - maybe later tweak
 void TTTController::startNewGame() {
     board = Board(player1,player2);
+    bigBoard = BigBoard(player1,player2);
 }
 
-//done
+//TODO
 bool TTTController::setSelection(std::string gameJsonObject) {
     int row,col,currentPlayer;
 
@@ -133,6 +134,53 @@ bool TTTController::setSelection(const Player &player, int pos) {
         return false;
     }
 
+}
+
+//yet to be tested
+bool TTTController::setSelection(const Player &player, int pos, Board& board) {
+
+    std::array<Player,9> cursor;
+    cursor = board.getCursor();
+    if(pos >= 0 && pos <= 8){
+
+
+        if( compare(cursor[pos],player1)|| compare(cursor[pos],player2)){
+
+            //std::cout << "\033[1;31mCaution:\033[0;m Invalid position! Please try again";// << std::endl;
+            return false;
+        }
+
+        cursor[pos] = player;
+        board.setCursor(cursor);
+        return true;
+
+    }else{
+        //std::cout << "\033[1;31mCaution:\033[0;m Position not in range";// << std::endl;
+        return false;
+    }
+
+}
+
+//yet to be tested
+bool TTTController::setSelection(int row, int col, int outerRow, int outerCol, int currentPlayer) {
+    int outerPos = 3*outerRow+outerCol;
+    std::array<Board,9> board = bigBoard.getLBoard();
+    if(!(row>=0 && row <=2 && col >=0 && col <= 2)) return false;
+    switch (currentPlayer) {
+        case 1:
+            if( setSelection(player1, (3 * row + col),board.at(outerPos)) ){
+                bigBoard.setLBoard(board);
+                return true;
+            };
+        case 2:
+            if( setSelection(player2, (3 * row + col),board.at(outerPos)) ){
+                bigBoard.setLBoard(board);
+                return true;
+            };
+        default:
+            //std::cout << "Invalid Player number" << std::endl;
+            return false;
+    }
 }
 
 //done
@@ -205,7 +253,7 @@ std::string TTTController::getGameCursor() {
     return cursorStr;
 }
 
-//done
+//TODO
 std::string TTTController::getGameDisplay() {
     std::array<Player,9> cursor = board.getCursor();
     std::string out = "";
@@ -282,13 +330,13 @@ void TTTController::partParseJson(std::string &json, int &key) {
 
 }
 
-//int main(){
-//    TTTController ttt;
+int main(){
+    TTTController ttt;
 //
 //    std::string temp;
-//    ttt.createPlayer("Raghuvaran","x",1);
-//    ttt.createPlayer("Sravya","y",2);
-//    ttt.startNewGame();
+    ttt.createPlayer("Raghuvaran","x",1);
+    ttt.createPlayer("Sravya","y",2);
+    ttt.startNewGame();
 //    std::cin >> temp;
 //    ttt.setSelection(temp);
 //    std::cin >> temp;
@@ -300,8 +348,10 @@ void TTTController::partParseJson(std::string &json, int &key) {
 //    ttt.board.boardCursor[0] = ttt.player1;ttt.board.boardCursor[1] = ttt.player1;ttt.board.boardCursor[8] = ttt.player1;
 //    ttt.board.boardCursor[3] = ttt.player2;ttt.board.boardCursor[2] = ttt.player2;ttt.board.boardCursor[7] = ttt.player2;
 //    ttt.board.boardCursor[4] = ttt.player2;ttt.board.boardCursor[5] = ttt.player1;ttt.board.boardCursor[6] = ttt.player2;
-//    std::cout << ttt.getGameDisplay(true);
+    std::cout << ttt.setSelection(0,0,0,0,1) << std::endl;
+
+    std::cout << ttt.getGameDisplay(0);
 //    std::cout << ttt.getGameCursor();
 //
 //
-//}
+}

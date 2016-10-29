@@ -9,12 +9,14 @@
 #include <string>
 #include "../model/Player.h"
 #include "../model/Board.h"
+#include "../model/BigBoard.h"
 
 class TTTController {
 
 public:
     Player player1, player2;
     Board board;
+    BigBoard bigBoard;
     TTTController();
     ~TTTController();
     void createPlayer(std::string,std::string,int);         //required
@@ -26,6 +28,8 @@ public:
     bool setSelection(int row, int col, int currentPlayer); //required
     bool setSelection(int pos, int currentPlayer);
     bool setSelection(const Player& player,int pos);
+    bool setSelection(const Player &player, int pos, Board& board);
+    bool setSelection(int row, int col, int outerRow, int outerCol, int currentPlayer);
     int determineWinner();                                  //required
     std::string getGameDisplay(bool isJson);                //required
     std::string getGameDisplay();                           //required
