@@ -330,13 +330,13 @@ void TTTController::partParseJson(std::string &json, int &key) {
 
 }
 
-int main(){
-    TTTController ttt;
+//int main(){
+//    TTTController ttt;
 //
 //    std::string temp;
-    ttt.createPlayer("Raghuvaran","x",1);
-    ttt.createPlayer("Sravya","y",2);
-    ttt.startNewGame();
+//    ttt.createPlayer("Raghuvaran","x",1);
+//    ttt.createPlayer("Sravya","y",2);
+//    ttt.startNewGame();
 //    std::cin >> temp;
 //    ttt.setSelection(temp);
 //    std::cin >> temp;
@@ -348,10 +348,10 @@ int main(){
 //    ttt.board.boardCursor[0] = ttt.player1;ttt.board.boardCursor[1] = ttt.player1;ttt.board.boardCursor[8] = ttt.player1;
 //    ttt.board.boardCursor[3] = ttt.player2;ttt.board.boardCursor[2] = ttt.player2;ttt.board.boardCursor[7] = ttt.player2;
 //    ttt.board.boardCursor[4] = ttt.player2;ttt.board.boardCursor[5] = ttt.player1;ttt.board.boardCursor[6] = ttt.player2;
-    std::cout << ttt.setSelection(0,0,0,0,1) << std::endl;
+//    std::cout << ttt.setSelection(0,0,0,0,1) << std::endl;
 
-    std::cout << ttt.getGameDisplay(0);
+//    std::cout << ttt.getGameDisplay(0);
 //    std::cout << ttt.getGameCursor();
 //
 //
-}
+//}
