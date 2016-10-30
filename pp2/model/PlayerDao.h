@@ -9,11 +9,14 @@
 #include <list>
 #include <fstream>
 #include "Player.h"
+#include "../lib/rapidjson/document.h"
 
 class PlayerDao {
-    std::string fileName = "filePlayers.txt";
+    std::string fileName = "filePlayers.txt", temp_fileName = "filePlayers_temp.txt";
     std::ofstream outFile;
     std::ifstream inFile;
+    bool isJsonGood(rapidjson::Document& json);
+    Player createPlayerInstance(rapidjson::Document& json);
 public:
     bool createNewPlayer(Player &player);    //Create
     bool createNewPlayer_old(Player &player);    //Obsolete
