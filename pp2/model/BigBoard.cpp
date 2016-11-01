@@ -26,6 +26,14 @@ void BigBoard::setLBoard(const std::array<Board, 9> &lBoard) {
     BigBoard::lBoard = lBoard;
 }
 
+const Player &Board::getPlayer(int number) const {
+    switch(number){
+        case 1: return player1;
+        case 2: return player2;
+        default: return Player();
+    }
+}
+
 
 //int main(){
 //    Player p1 = Player("RV",'x');

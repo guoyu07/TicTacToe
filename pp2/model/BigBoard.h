@@ -20,6 +20,8 @@ public:
     const std::array<Board, 9> &getLBoard() const;
 
     void setLBoard(const std::array<Board, 9> &lBoard);
+
+    const Player& getPlayer (int number) const;
 };
 
 
