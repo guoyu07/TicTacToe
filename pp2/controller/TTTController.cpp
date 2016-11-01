@@ -284,7 +284,7 @@ int TTTController::determineWinner(Board& board) {
     }
 
 
-    //Game is draw
+    //Game is tie/no room available
     return 3;
 
     //None of the above cases worked?
@@ -298,15 +298,33 @@ int TTTController::determineWinner(BigBoard &bigBoard) {
 
     //check column match
     for(int i=0, j=3, k=6; i<3; i++, j++, k++){
-        if((lBoard[i].getWinner()))
+        if(compareBoards(lBoard[i],lBoard[j]) && compareBoards(lBoard[j],lBoard[k]))
+            return lBoard[i].getWinner();
     }
 
     //check row match
-
+    for(int i=0, j=1, k=2; i<9; i+=3, j+=3, k+=3){
+        if(compareBoards(lBoard[i],lBoard[j]) && compareBoards(lBoard[j],lBoard[k]))
+            return lBoard[i].getWinner();
+    }
 
     //check diagonal match
+    if((compareBoards(lBoard[0], lBoard[4]) && compareBoards(lBoard[4], lBoard[8])) || (compareBoards(lBoard[2], lBoard[4]) &&
+                                                                                          compareBoards(lBoard[4], lBoard[6]))){
+        return lBoard[4].getWinner();
+    }
 
-    return 0;
+
+    //Is it a draw? or still running?
+    for(int i=0; i < 9; i++){
+        if(!lBoard[i].getWinner())  {return 0;}
+    }
+
+
+    //Game is tie/no room available
+    return 3;
+
+    //None of the above cases worked?
 }
 
 //done
@@ -369,7 +387,11 @@ bool TTTController::comparePlayers(const Player &p1, const Player &p2){
 }
 
 bool TTTController::compareBoards(const Board &b1, const Board &b2) {
-    if()
+    switch (b1.getWinner() * b2.getWinner()){
+        case 1: return true;
+        case 4: return true;
+        default: return false;
+    }
 
     return false;
 }
@@ -440,13 +462,17 @@ int main(){
     document.AddMember("playerNum",1, allocator);
     document.Accept(writer);
     ttt.createPlayer(buffer.GetString());
-    rapidjson::Value& val = document["playerNum"];
+    auto& val = document["playerNum"];
     val.SetInt(2);
+    auto& val2 = document["marker"];
+    val2.SetString("a");
+    auto& val3 = document["name"];
+    val3.SetString("RV");
     buffer.Clear();
     writer.Reset(buffer);
     document.Accept(writer);
     ttt.createPlayer(buffer.GetString());
-    std::cout << (ttt.player2.getSymbol() == 'x') << std::endl;
+    std::cout << (ttt.player2.getSymbol() == 'a') << std::endl;
 
 //
 //
