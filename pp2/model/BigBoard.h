@@ -21,7 +21,7 @@ public:
 
     void setLBoard(const std::array<Board, 9> &lBoard);
 
-    const Player& getPlayer (int number) const;
+    Player getPlayer (int number);
 };
 
 

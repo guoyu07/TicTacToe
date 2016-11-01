@@ -3,6 +3,7 @@
 //
 
 #include <iostream>
+#include <cassert>
 #include "Board.h"
 
 Board::Board():id(-1) {
@@ -45,10 +46,12 @@ int Board::getWinner() const {
 
 int Board::setWinner(int winner) {
     Board::winner = winner;
+    //TODO - delete if not neccessary
+    assert(winner>=0 && winner <=9);
     return winner;
 }
 
-const Player &Board::getPlayer(int number) const {
+Player Board::getPlayer(int number)  {
     switch(number){
         case 1: return player1;
         case 2: return player2;

@@ -27,7 +27,7 @@ public:
     int setWinner(int winner);
     const std::array<Player, 9> getCursor() const;
     void setCursor(const std::array<Player, 9> &cursor);
-    const Player& getPlayer (int number) const;
+    Player getPlayer (int number);
     void setPlayer(std::string&, std::string&, int);
     int markSymbol(const Player&, int);
     std::string printBoard();
