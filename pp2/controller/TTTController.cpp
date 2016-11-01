@@ -8,6 +8,9 @@
 #include "TTTController.h"
 #include "../model/Player.h"
 #include "../model/PlayerDao.h"
+#include "../lib/rapidjson/document.h"
+#include "../lib/rapidjson/stringbuffer.h"
+#include "../lib/rapidjson/writer.h"
 
 TTTController::TTTController() {}
 TTTController::~TTTController() {}
@@ -38,6 +41,24 @@ void TTTController::createPlayer(std::string name, std::string marker, int playe
 
 //done
 void TTTController::createPlayer(std::string playerJsonObject) {
+
+    rapidjson::Document json;
+    json.Parse(&playerJsonObject[0]);
+
+    if(json.HasMember("name") &&
+            json.HasMember("marker") &&
+            json.HasMember("playerNum") &&
+            json["name"].IsString() &&
+            json["marker"].IsString() &&
+            json["playerNum"].IsInt())
+    createPlayer(json["name"].GetString(),json["marker"].GetString(),json["playerNum"].GetInt());
+    else
+        std::cout << "Invalid JSON!" << "@TTTController::createPlayer" << std::endl;
+
+}
+
+//obsolete
+void TTTController::createPlayer_old(std::string playerJsonObject) {
     std::string name, marker;
     int playerNum =1;
 
@@ -81,13 +102,24 @@ void TTTController::startNewGame() {
 
 //TODO expected to be changed
 bool TTTController::setSelection(std::string gameJsonObject) {
-    int row,col,currentPlayer;
 
-    partParseJson(gameJsonObject,row);
-    partParseJson(gameJsonObject,col);
-    partParseJson(gameJsonObject,currentPlayer);
-
-    return setSelection(row,col,currentPlayer);
+    rapidjson::Document json;
+    json.Parse(gameJsonObject.c_str());
+    if(json.HasMember("row") &&
+            json.HasMember("col") &&
+            json.HasMember("currentPlayer") &&
+            json["row"].IsInt() &&
+            json["col"].IsInt() &&
+            json["currentPlayer"].IsInt())
+        if(json.HasMember("outerRow") &&
+                json.HasMember("outerCol") &&
+                json["outerRow"].IsInt() &&
+                json["outerCol"].IsInt())
+            return setSelection(json["row"].GetInt(), json["col"].GetInt(),json["outerRow"].GetInt(),json["outerCol"].GetInt(),json["currentPlayer"].GetInt());
+        else
+            return setSelection(json["row"].GetInt(), json["col"].GetInt(),json["currentPlayer"].GetInt());
+    else
+        return false;
 }
 
 //done
@@ -119,7 +151,7 @@ bool TTTController::setSelection(const Player &player, int pos) {
     if(pos >= 0 && pos <= 8){
 
 
-        if( compare(cursor[pos],player1)|| compare(cursor[pos],player2)){
+        if(comparePlayers(cursor[pos], player1)|| comparePlayers(cursor[pos], player2)){
 
             //std::cout << "\033[1;31mCaution:\033[0;m Invalid position! Please try again";// << std::endl;
             return false;
@@ -144,7 +176,7 @@ bool TTTController::setSelection(const Player &player, int pos, Board& board) {
     if(pos >= 0 && pos <= 8){
 
 
-        if( compare(cursor[pos],player1)|| compare(cursor[pos],player2)){
+        if(comparePlayers(cursor[pos], player1)|| comparePlayers(cursor[pos], player2)){
 
             //std::cout << "\033[1;31mCaution:\033[0;m Invalid position! Please try again";// << std::endl;
             return false;
@@ -161,7 +193,7 @@ bool TTTController::setSelection(const Player &player, int pos, Board& board) {
 
 }
 
-//yet to be tested
+
 bool TTTController::setSelection(int row, int col, int outerRow, int outerCol, int currentPlayer) {
     int outerPos = 3*outerRow+outerCol;
     std::array<Board,9> board = bigBoard.getLBoard();
@@ -190,21 +222,22 @@ int TTTController::determineWinner() {
     cursor = board.getCursor();
     //Check column match
     for(int i=0, j=3, k=6; i<3; i++, j++, k++){
-        if(compare(cursor[i],cursor[j]) && compare(cursor[j],cursor[k])){
+        if(comparePlayers(cursor[i], cursor[j]) && comparePlayers(cursor[j], cursor[k])){
             //std::cout << "i:" << i;
-            return compare(cursor[i],player1)?1:2;
+            return comparePlayers(cursor[i], player1)?1:2;
         }
     }
 
     //check row match
     for(int i=0, j=1, k=2; i<9; i+=3, j+=3, k+=3){
-        if(compare(cursor[i],cursor[j]) && compare(cursor[j],cursor[k])){
-            return compare(cursor[i],player1)?1:2;
+        if(comparePlayers(cursor[i], cursor[j]) && comparePlayers(cursor[j], cursor[k])){
+            return comparePlayers(cursor[i], player1)?1:2;
         }
     }
     //check diagonal match
-    if((compare(cursor[0], cursor[4]) && compare(cursor[4], cursor[8])) || (compare(cursor[2], cursor[4]) && compare(cursor[4], cursor[6]))){
-        return compare(cursor[4],player1)?1:2;
+    if((comparePlayers(cursor[0], cursor[4]) && comparePlayers(cursor[4], cursor[8])) || (comparePlayers(cursor[2], cursor[4]) &&
+            comparePlayers(cursor[4], cursor[6]))){
+        return comparePlayers(cursor[4], player1)?1:2;
     }
 
     //Is it a draw? or still running?
@@ -219,6 +252,61 @@ int TTTController::determineWinner() {
     //None of the above cases worked?
 
 
+}
+
+int TTTController::determineWinner(Board& board) {
+
+    std::array<Player,9> cursor;
+    cursor = board.getCursor();
+    //Check column match
+    for(int i=0, j=3, k=6; i<3; i++, j++, k++){
+        if(comparePlayers(cursor[i], cursor[j]) && comparePlayers(cursor[j], cursor[k])){
+            //std::cout << "i:" << i;
+            return board.setWinner(comparePlayers(cursor[i], board.getPlayer(1))?1:2);
+        }
+    }
+
+    //check row match
+    for(int i=0, j=1, k=2; i<9; i+=3, j+=3, k+=3){
+        if(comparePlayers(cursor[i], cursor[j]) && comparePlayers(cursor[j], cursor[k])){
+            return board.setWinner(comparePlayers(cursor[i], board.getPlayer(1))?1:2);
+        }
+    }
+    //check diagonal match
+    if((comparePlayers(cursor[0], cursor[4]) && comparePlayers(cursor[4], cursor[8])) || (comparePlayers(cursor[2], cursor[4]) &&
+            comparePlayers(cursor[4], cursor[6]))){
+        return board.setWinner(comparePlayers(cursor[4], board.getPlayer(1))?1:2);
+    }
+
+    //Is it a draw? or still running?
+    for(int i=0; i < 9; i++){
+        if(cursor[i].getId() <0)  {return 0;}
+    }
+
+
+    //Game is draw
+    return 3;
+
+    //None of the above cases worked?
+
+
+}
+
+int TTTController::determineWinner(BigBoard &bigBoard) {
+    std::array<Board,9> lBoard;
+    lBoard = bigBoard.getLBoard();
+
+    //check column match
+    for(int i=0, j=3, k=6; i<3; i++, j++, k++){
+        if((lBoard[i].getWinner()))
+    }
+
+    //check row match
+
+
+    //check diagonal match
+
+    return 0;
 }
 
 //done
@@ -276,8 +364,14 @@ std::string TTTController::getGameDisplay() {
 }
 
 //done
-bool TTTController::compare(const Player& p1, const Player& p2){
+bool TTTController::comparePlayers(const Player &p1, const Player &p2){
     return p1.getId() == p2.getId();
+}
+
+bool TTTController::compareBoards(const Board &b1, const Board &b2) {
+    if()
+
+    return false;
 }
 
 //done - maybe tweaks required
@@ -330,28 +424,30 @@ void TTTController::partParseJson(std::string &json, int &key) {
 
 }
 
-//int main(){
-//    TTTController ttt;
-//
-//    std::string temp;
-//    ttt.createPlayer("Raghuvaran","x",1);
-//    ttt.createPlayer("Sravya","y",2);
-//    ttt.startNewGame();
-//    std::cin >> temp;
-//    ttt.setSelection(temp);
-//    std::cin >> temp;
-//    ttt.setSelection(temp);
-//
-//
-//
-//    ttt.board = Board(ttt.player1,ttt.player2);
-//    ttt.board.boardCursor[0] = ttt.player1;ttt.board.boardCursor[1] = ttt.player1;ttt.board.boardCursor[8] = ttt.player1;
-//    ttt.board.boardCursor[3] = ttt.player2;ttt.board.boardCursor[2] = ttt.player2;ttt.board.boardCursor[7] = ttt.player2;
-//    ttt.board.boardCursor[4] = ttt.player2;ttt.board.boardCursor[5] = ttt.player1;ttt.board.boardCursor[6] = ttt.player2;
-//    std::cout << ttt.setSelection(0,0,0,0,1) << std::endl;
+int main(){
+    TTTController ttt;
 
-//    std::cout << ttt.getGameDisplay(0);
-//    std::cout << ttt.getGameCursor();
+    std::string temp = "john2";
+    rapidjson::Document document;
+    rapidjson::StringBuffer buffer;
+    rapidjson::Writer<rapidjson::StringBuffer> writer(buffer);
+    rapidjson::Document::AllocatorType& allocator = document.GetAllocator();
+    document.SetObject();
+    rapidjson::Value tmp_val;
+    tmp_val.SetString(&temp[0],temp.length(),allocator);
+    document.AddMember("name",tmp_val,allocator);
+    document.AddMember("marker","j",allocator);
+    document.AddMember("playerNum",1, allocator);
+    document.Accept(writer);
+    ttt.createPlayer(buffer.GetString());
+    rapidjson::Value& val = document["playerNum"];
+    val.SetInt(2);
+    buffer.Clear();
+    writer.Reset(buffer);
+    document.Accept(writer);
+    ttt.createPlayer(buffer.GetString());
+    std::cout << (ttt.player2.getSymbol() == 'x') << std::endl;
+
 //
 //
-//}
+}
