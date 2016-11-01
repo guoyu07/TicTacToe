@@ -58,7 +58,7 @@ std::string TTTController::getPlayerName(int currentPlayer) {
     }
 }
 
-//TODO
+//TODO expected to be changed
 std::string TTTController::getAllSavedPlayers() {
     PlayerDao playerDao;
     std::list<Player> playerList = playerDao.getAllPlayers();
@@ -79,7 +79,7 @@ void TTTController::startNewGame() {
     bigBoard = BigBoard(player1,player2);
 }
 
-//TODO
+//TODO expected to be changed
 bool TTTController::setSelection(std::string gameJsonObject) {
     int row,col,currentPlayer;
 
@@ -183,7 +183,7 @@ bool TTTController::setSelection(int row, int col, int outerRow, int outerCol, i
     }
 }
 
-//done
+//TODO expected to be changed
 int TTTController::determineWinner() {
 
     std::array<Player,9> cursor;
