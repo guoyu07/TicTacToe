@@ -39,8 +39,25 @@ void Board::setId(int id) {
     Board::id = id;
 }
 
+int Board::getWinner() const {
+    return winner;
+}
+
+int Board::setWinner(int winner) {
+    Board::winner = winner;
+    return winner;
+}
+
+const Player &Board::getPlayer(int number) const {
+    switch(number){
+        case 1: return player1;
+        case 2: return player2;
+        default: return Player();
+    }
+}
+
 //int main(){
 //    Board b = Board(Player("Raghu",'x'),Player("Sathy",'o'));
-//    if(b.compare(b.player1,b.player1))    std::cout << b.player1.getId() << " | " << b.player2.getId() << std::endl;
+//    if(b.comparePlayers(b.player1,b.player1))    std::cout << b.player1.getId() << " | " << b.player2.getId() << std::endl;
 //    std::cout << b.cursor[3].getSymbol() << std::endl;
 //}

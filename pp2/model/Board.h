@@ -16,14 +16,18 @@ class Board {
     std::array<Player,9> cursor;
     Player player1;
     Player player2;
+    int winner = 0;
 public:
     Board();
     Board(const Player&, const Player&);
     Board(const Player&, const Player&, int id);
     int getId() const;
     void setId(int id);
+    int getWinner() const;
+    int setWinner(int winner);
     const std::array<Player, 9> getCursor() const;
     void setCursor(const std::array<Player, 9> &cursor);
+    const Player& getPlayer (int number) const;
     void setPlayer(std::string&, std::string&, int);
     int markSymbol(const Player&, int);
     std::string printBoard();
