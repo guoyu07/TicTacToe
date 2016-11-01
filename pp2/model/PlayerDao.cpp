@@ -72,6 +72,7 @@ Player PlayerDao::getPlayer(std::string name) {
     if(!inFile.eof()) {std::getline(inFile,tmp_str); tmp_char = &tmp_str[0]; json.Parse(tmp_char);}
     while(!inFile.eof()) {
         if (isJsonGood(json) && json["name"].GetString() == name){
+            inFile.close();
 
             return createPlayerInstance(json);
         }
@@ -122,7 +123,8 @@ std::list<Player> PlayerDao::getAllPlayers() {
 bool PlayerDao::updatePlayerScore(Player &player, char game, int result) {
     //game: R - Regular, U - Ultimate
     //result: 1 - win , 2 - loss, 3 - tie
-    if(!inFile.is_open()){inFile.open(fileName);}
+    if(!inFile.is_open()){
+        inFile.open(fileName,std::ios_base::in);}
     if(!inFile.good()) return false;
     if(!outFile.is_open()){outFile.open(temp_fileName,std::ios_base::out);}
     std::string tmp_str;
@@ -131,8 +133,12 @@ bool PlayerDao::updatePlayerScore(Player &player, char game, int result) {
     rapidjson::StringBuffer buffer;
     rapidjson::Writer<rapidjson::StringBuffer> writer(buffer);
     rapidjson::Document::AllocatorType& allocator = json.GetAllocator();
-    if(!inFile.eof()) {std::getline(inFile,tmp_str); tmp_char = &tmp_str[0]; json.Parse(tmp_char);}
-    while(!inFile.eof()) {
+//    if(!inFile.eof()) {
+// std::getline(inFile,tmp_str);
+// tmp_char = &tmp_str[0];
+// json.Parse(tmp_char);}
+    while(std::getline(inFile,tmp_str)) {
+        tmp_char = &tmp_str[0]; json.Parse(tmp_char);
         if (isJsonGood(json) && json["name"].GetString() == player.getName()){
 
             if(game == 'R') {
@@ -159,12 +165,12 @@ bool PlayerDao::updatePlayerScore(Player &player, char game, int result) {
             inFile.close();
             outFile.close();
             auto success = std::rename(temp_fileName.c_str(),fileName.c_str());
-            assert(success);
+            assert(!success);
             return true;
 
         }
         outFile << tmp_str << std::endl;
-        std::getline(inFile,tmp_str); tmp_char = &tmp_str[0]; json.Parse(tmp_char);  //Fetch next
+        //std::getline(inFile,tmp_str); tmp_char = &tmp_str[0]; json.Parse(tmp_char);  //Fetch next
     }
 
     inFile.close();
@@ -261,7 +267,15 @@ Player PlayerDao::createPlayerInstance(rapidjson::Document& json){
 
 //int main(){
 //    PlayerDao playerDao;
-//    Player one("Raghuvaran6",'R');
+//    std::string playerName = "Raghuvaran6";
+//    Player one(playerName,'R');
+//    std::cout << "Cleared exisiting \"filePlayers.txt\" : " << std::remove("filePlayers.txt") << std::endl;
+//    std::cout << "Create new player : " << playerDao.createNewPlayer(one)  << std::endl;
+//    std::cout << "New player is present: " << playerDao.isPresent(playerName) << std::endl;
+//    std::cout << "Create existing player:" << playerDao.createNewPlayer(one)  << std::endl;
+//    std::cout << "Get last player : " << (playerDao.getAllPlayers().back().getName() == playerName) << std::endl;
+//    std::cout << "Current ultimate game win : " << playerDao.getPlayer(playerName).getRegStats()[0] << std::endl;
+//    std::cout << "Current player won ultimate game : " << playerDao.updatePlayerScore(one,'U',1) << std::endl;
+//    std::cout << "Updated ultimate game win : " << playerDao.getPlayer(playerName).getUltStats()[0] << std::endl;
 //
-//    std::cout << "Present: " << (playerDao.updatePlayerScore(one,'U',2)) << std::endl;
 //}
