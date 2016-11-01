@@ -33,8 +33,14 @@ bool PlayerDao::createNewPlayer(Player &player) {
     json.AddMember("name", tmp_val,allocator);  //It's okay to have red line
     tmp_val.SetString(player.getSymbolChar(), 1, allocator);
     json.AddMember("symbol", tmp_val, allocator);  //It's okay to have red line
-    json.AddMember("win",0, allocator);json.AddMember("loss",0,allocator);json.AddMember("tie",0,allocator);
-    json.AddMember("uwin",0, allocator);json.AddMember("uloss",0,allocator);json.AddMember("utie",0,allocator);
+    rapidjson::Value regular(rapidjson::kObjectType);
+    regular.AddMember("win",0, allocator);regular.AddMember("loss",0,allocator);regular.AddMember("tie",0,allocator);
+    rapidjson::Value ultimate(rapidjson::kObjectType);
+    ultimate.AddMember("win",0, allocator);ultimate.AddMember("loss",0,allocator);ultimate.AddMember("tie",0,allocator);
+    rapidjson::Value stats(rapidjson::kObjectType);
+    stats.AddMember("regular",regular,allocator);
+    stats.AddMember("ultimate",ultimate,allocator);
+    json.AddMember("stats",stats,allocator);
     json.Accept(writer);
     outFile << buffer.GetString() << std::endl;
     outFile.close();
@@ -132,16 +138,16 @@ bool PlayerDao::updatePlayerScore(Player &player, char game, int result) {
             if(game == 'R') {
 
                 switch (result){
-                    case 1: {rapidjson::Value& value = json["win"];  value.SetInt(value.GetInt()+1); break;}
-                    case 2: {rapidjson::Value& value = json["loss"]; value.SetInt(value.GetInt()+1); break;}
-                    case 3: {rapidjson::Value& value = json["tie"];  value.SetInt(value.GetInt()+1); break;}
+                    case 1: {rapidjson::Value& value = json["stats"]["regular"]["win"];  value.SetInt(value.GetInt()+1); break;}
+                    case 2: {rapidjson::Value& value = json["stats"]["regular"]["loss"]; value.SetInt(value.GetInt()+1); break;}
+                    case 3: {rapidjson::Value& value = json["stats"]["regular"]["tie"];  value.SetInt(value.GetInt()+1); break;}
                     default: return false;
                 }
             }else if(game == 'U') {
                 switch (result){
-                    case 1: {rapidjson::Value& value = json["uwin"];  value.SetInt(value.GetInt()+1); break;}
-                    case 2: {rapidjson::Value& value = json["uloss"]; value.SetInt(value.GetInt()+1); break;}
-                    case 3: {rapidjson::Value& value = json["utie"];  value.SetInt(value.GetInt()+1); break;}
+                    case 1: {rapidjson::Value& value = json["stats"]["ultimate"]["win"];  value.SetInt(value.GetInt()+1); break;}
+                    case 2: {rapidjson::Value& value = json["stats"]["ultimate"]["loss"]; value.SetInt(value.GetInt()+1); break;}
+                    case 3: {rapidjson::Value& value = json["stats"]["ultimate"]["tie"];  value.SetInt(value.GetInt()+1); break;}
                     default: return false;
                 }
             }
@@ -152,7 +158,8 @@ bool PlayerDao::updatePlayerScore(Player &player, char game, int result) {
 
             inFile.close();
             outFile.close();
-            std::cout << std::rename(temp_fileName.c_str(),fileName.c_str());
+            auto success = std::rename(temp_fileName.c_str(),fileName.c_str());
+            assert(success);
             return true;
 
         }
@@ -225,24 +232,36 @@ bool PlayerDao::isPresent(const std::string &name) {
 }
 
 bool PlayerDao::isJsonGood(rapidjson::Document& json){
-    return (json.HasMember("name") &&
-            json.HasMember("symbol")&&
-            json.HasMember("win") &&
-            json.HasMember("loss") &&
-            json.HasMember("tie") &&
-            json.HasMember("uwin") &&
-            json.HasMember("uloss") &&
-            json.HasMember("utie")
-            );
+    if(json.HasMember("name") &&
+       json.HasMember("symbol")&&
+       json.HasMember("stats")
+            ){
+        const rapidjson::Value& stats = json["stats"];
+        if( stats.HasMember("regular") &&
+            stats.HasMember("ultimate") ){
+
+            const rapidjson::Value& regular = (stats["regular"]);
+            const rapidjson::Value& ultimate  = (stats["ultimate"]);
+
+            return (regular.HasMember("win") &&
+                    regular.HasMember("loss") &&
+                    regular.HasMember("tie") &&
+                    ultimate.HasMember("win") &&
+                    ultimate.HasMember("loss") &&
+                    ultimate.HasMember("tie"));
+
+        }
+    }
+    return false;
 }
 
 Player PlayerDao::createPlayerInstance(rapidjson::Document& json){
-    return Player(json["name"].GetString(), json["symbol"].GetString()[0], json["win"].GetInt(), json["loss"].GetInt(), json["tie"].GetInt(), json["uwin"].GetInt(), json["uloss"].GetInt(), json["utie"].GetInt());
+    return Player(json["name"].GetString(), json["symbol"].GetString()[0], json["stats"]["regular"]["win"].GetInt(), json["stats"]["regular"]["loss"].GetInt(), json["stats"]["regular"]["tie"].GetInt(), json["stats"]["ultimate"]["win"].GetInt(), json["stats"]["ultimate"]["loss"].GetInt(), json["stats"]["ultimate"]["tie"].GetInt());
 }
 
-int main(){
-    PlayerDao playerDao;
-    Player one("Raghuvaran6",'R');
-
-    std::cout << playerDao.updatePlayerScore(one,'R',2);
-}
+//int main(){
+//    PlayerDao playerDao;
+//    Player one("Raghuvaran6",'R');
+//
+//    std::cout << "Present: " << (playerDao.updatePlayerScore(one,'U',2)) << std::endl;
+//}
