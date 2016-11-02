@@ -11,13 +11,13 @@
 
 class BigBoard {
     Player player1, player2;
-    std::array<Board,9> lBoard;
 public:
+    std::array<Board,9> lBoard;
     BigBoard();
 
     BigBoard(const Player &player1, const Player &player2);
 
-    const std::array<Board, 9> &getLBoard() const;
+    std::array<Board, 9> &getLBoard();
 
     void setLBoard(const std::array<Board, 9> &lBoard);
 

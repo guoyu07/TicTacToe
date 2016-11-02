@@ -18,7 +18,7 @@ BigBoard::BigBoard(const Player &player1, const Player &player2) : player1(playe
 //    std::cout << lBoard.back().getId() <<","<< lBoard.size() << std::endl;
 }
 
-const std::array<Board, 9> &BigBoard::getLBoard() const {
+std::array<Board, 9> &BigBoard::getLBoard() {
     return lBoard;
 }
 

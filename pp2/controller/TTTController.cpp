@@ -296,6 +296,10 @@ int TTTController::determineWinner(BigBoard &bigBoard) {
     std::array<Board,9> lBoard;
     lBoard = bigBoard.getLBoard();
 
+    for(Board& b : lBoard){
+        determineWinner(b);
+    }
+
     //check column match
     for(int i=0, j=3, k=6; i<3; i++, j++, k++){
         if(compareBoards(lBoard[i],lBoard[j]) && compareBoards(lBoard[j],lBoard[k]))
@@ -379,6 +383,37 @@ std::string TTTController::getGameDisplay() {
     out +=  lver ; out +=  cursor[6].getSymbol() ; out +=  ver ; out +=  cursor[7].getSymbol() ; out +=  ver ; out +=  cursor[8].getSymbol() ; out +=  rver ; out +=  "\n";
     out +=  "+" ; out +=  hor ; out +=  "+" ; out +=  hor ; out +=  "+" ; out +=  hor ; out +=  "+" ; out +=  "\n";
     return out;
+}
+
+std::string TTTController::getGameDisplay(Board& board) {
+    std::array<Player,9> cursor = board.getCursor();
+    std::string out = "";
+    std::string hor = "-----";
+    std::string lver = "|  ";
+    std::string rver = "  |";
+    std::string ver = "  |  ";
+
+    // out += "\033[8A";   //Clear 8 lines up
+    out +=  "+" ; out +=  hor ; out +=  "+" ; out +=  hor ; out +=  "+" ; out +=  hor ; out +=  "+" ; out +=  "\n";
+    out +=  lver ; out +=  cursor[0].getSymbol() ; out +=  ver ; out +=  cursor[1].getSymbol() ; out +=  ver ; out +=  cursor[2].getSymbol() ; out +=  rver ; out +=  "\n";
+
+    out +=  "+" ; out +=  hor ; out +=  "+" ; out +=  hor ; out +=  "+" ; out +=  hor ; out +=  "+" ; out +=  "\n";
+    out +=  lver ; out +=  cursor[3].getSymbol() ; out +=  ver ; out +=  cursor[4].getSymbol() ; out +=  ver ; out +=  cursor[5].getSymbol() ; out +=  rver ; out +=  "\n";
+
+    out +=  "+" ; out +=  hor ; out +=  "+" ; out +=  hor ; out +=  "+" ; out +=  hor ; out +=  "+" ; out +=  "\n";
+    out +=  lver ; out +=  cursor[6].getSymbol() ; out +=  ver ; out +=  cursor[7].getSymbol() ; out +=  ver ; out +=  cursor[8].getSymbol() ; out +=  rver ; out +=  "\n";
+    out +=  "+" ; out +=  hor ; out +=  "+" ; out +=  hor ; out +=  "+" ; out +=  hor ; out +=  "+" ; out +=  "\n";
+    return out;
+}
+
+std::string TTTController::getGameDisplay(BigBoard &bigBoard) {
+    std::string returnStr;
+    int i=1;
+    for(Board b : bigBoard.getLBoard()){
+        returnStr += std::to_string(i++) + ":\n";
+        returnStr += getGameDisplay(b);
+    }
+    return returnStr;
 }
 
 //done
@@ -473,6 +508,82 @@ int main(){
     document.Accept(writer);
     ttt.createPlayer(buffer.GetString());
     std::cout << (ttt.player2.getSymbol() == 'a') << std::endl;
+    ttt.startNewGame();
+    //diagonal check
+//    std::cout << ttt.setSelection(0,0,0,0,1);
+//    std::cout << ttt.setSelection(1,1,0,0,1);
+//    std::cout << ttt.setSelection(2,2,0,0,1);
+//
+//    std::cout << ttt.setSelection(0,0,1,1,1);
+//    std::cout << ttt.setSelection(1,1,1,1,1);
+//    std::cout << ttt.setSelection(2,2,1,1,1);
+//
+//    std::cout << ttt.setSelection(0,0,2,2,1);
+//    std::cout << ttt.setSelection(1,1,2,2,1);
+//    std::cout << ttt.setSelection(2,2,2,2,1);
+
+    //column check
+//    std::cout << ttt.setSelection(0,0,0,0,1);
+//    std::cout << ttt.setSelection(0,1,0,0,1);
+//    std::cout << ttt.setSelection(0,2,0,0,1);
+//
+//    std::cout << ttt.setSelection(0,0,1,0,1);
+//    std::cout << ttt.setSelection(0,1,1,0,1);
+//    std::cout << ttt.setSelection(0,2,1,0,1);
+//
+//    std::cout << ttt.setSelection(0,0,2,0,1);
+//    std::cout << ttt.setSelection(0,1,2,0,1);
+//    std::cout << ttt.setSelection(0,2,2,0,1);
+
+    //row check
+//    std::cout << ttt.setSelection(0,0,0,0,1);
+//    std::cout << ttt.setSelection(1,0,0,0,1);
+//    std::cout << ttt.setSelection(2,0,0,0,1);
+//
+//    std::cout << ttt.setSelection(0,0,0,1,1);
+//    std::cout << ttt.setSelection(1,0,0,1,1);
+//    std::cout << ttt.setSelection(2,0,0,1,1);
+//
+//    std::cout << ttt.setSelection(0,0,0,2,1);
+//    std::cout << ttt.setSelection(1,0,0,2,1);
+//    std::cout << ttt.setSelection(2,0,0,2,1);
+
+    //tie 1
+//
+    std::cout << ttt.setSelection(0,0,0,0,1);
+    std::cout << ttt.setSelection(1,1,0,0,1);
+    std::cout << ttt.setSelection(2,2,0,0,1);
+    std::cout << ttt.setSelection(0,0,0,1,2);
+    std::cout << ttt.setSelection(1,1,0,1,2);
+    std::cout << ttt.setSelection(2,2,0,1,2);
+    std::cout << ttt.setSelection(0,0,0,2,1);
+    std::cout << ttt.setSelection(1,1,0,2,1);
+    std::cout << ttt.setSelection(2,2,0,2,1);
+
+    std::cout << ttt.setSelection(0,0,1,0,2);
+    std::cout << ttt.setSelection(1,1,1,0,2);
+    std::cout << ttt.setSelection(2,2,1,0,2);
+    std::cout << ttt.setSelection(0,0,1,1,2);
+    std::cout << ttt.setSelection(1,1,1,1,2);
+    std::cout << ttt.setSelection(2,2,1,1,2);
+    std::cout << ttt.setSelection(0,0,1,2,1);
+    std::cout << ttt.setSelection(1,1,1,2,1);
+    std::cout << ttt.setSelection(2,2,1,2,1);
+
+    std::cout << ttt.setSelection(0,0,2,0,1);
+    std::cout << ttt.setSelection(1,1,2,0,1);
+    std::cout << ttt.setSelection(2,2,2,0,1);
+    std::cout << ttt.setSelection(0,0,2,1,1);
+    std::cout << ttt.setSelection(1,1,2,1,1);
+    std::cout << ttt.setSelection(2,2,2,1,1);
+    std::cout << ttt.setSelection(0,0,2,2,2);
+    std::cout << ttt.setSelection(1,1,2,2,2);
+    std::cout << ttt.setSelection(2,2,2,2,2);
+
+
+
+    std::cout << ttt.getGameDisplay(ttt.bigBoard) << std::endl;
+    std::cout << ttt.determineWinner(ttt.bigBoard) << std::endl;
 
 //
 //

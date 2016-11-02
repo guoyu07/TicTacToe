@@ -44,6 +44,8 @@ public:
 
     std::string getGameDisplay(bool isJson);                //required
     std::string getGameDisplay();                           //required
+    std::string getGameDisplay(Board& board);
+    std::string getGameDisplay(BigBoard& bigBoard);
     std::string getGameCursor();
 
 
