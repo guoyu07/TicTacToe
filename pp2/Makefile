@@ -3,14 +3,14 @@ CFLAGS	= -Wall --std=c++11
 CFLAG	= -g -Wall -Weffc++ -Wextra -pedantic
 LDFLAGS = -lm
 
-run:	main.o Board.o Player.o TTTController.o PlayerDao.o
-	${CXX} ${CFLAGS} -o ttt main.o Board.o Player.o TTTController.o PlayerDao.o -o ttt.cgi
+run:	main.o Board.o BigBoard.o Player.o TTTController.o PlayerDao.o
+	${CXX} ${CFLAGS} -o ttt main.o Board.o BigBoard.o Player.o TTTController.o PlayerDao.o -o ttt.cgi
 
-cli:	main_cli.o Board.o Player.o TTTController.o PlayerDao.o
-	${CXX} ${CFLAGS} -o ttt main_cli.o Board.o Player.o TTTController.o PlayerDao.o -o ttt.cgi
+cli:	main_cli.o Board.o BigBoard.o Player.o TTTController.o PlayerDao.o
+	${CXX} ${CFLAGS} -o ttt main_cli.o Board.o BigBoard.o Player.o TTTController.o PlayerDao.o -o ttt.cgi
 
-test:	sampleTest.o Board.o Player.o TTTController.o PlayerDao.o
-	${CXX} ${CFLAGS} -o ttt sampleTest.o Board.o Player.o TTTController.o PlayerDao.o -o test.cgi
+test:	sampleTest.o Board.o BigBoard.o Player.o TTTController.o PlayerDao.o
+	${CXX} ${CFLAGS} -o ttt sampleTest.o Board.o BigBoard.o Player.o TTTController.o PlayerDao.o -o test.cgi
 
 main.o:	main.cpp
 	${CXX} ${CFLAGS} -c main.cpp
@@ -26,6 +26,9 @@ PlayerDao.o: ./model/PlayerDao.cpp
 
 Board.o: ./model/Board.cpp 
 	${CXX} ${CFLAGS} -c ./model/Board.cpp ./model/Board.h
+
+BigBoard.o: ./model/BigBoard.cpp
+	${CXX} ${CFLAGS} -c ./model/BigBoard.cpp ./model/BigBoard.h
 
 TTTController.o: ./controller/TTTController.cpp
 	${CXX} ${CFLAGS} -c ./controller/TTTController.cpp ./controller/TTTController.h

@@ -6,11 +6,7 @@
 #include <cstring>
 #include <limits>
 #include "TTTController.h"
-#include "../model/Player.h"
 #include "../model/PlayerDao.h"
-#include "../lib/rapidjson/document.h"
-#include "../lib/rapidjson/stringbuffer.h"
-#include "../lib/rapidjson/writer.h"
 
 TTTController::TTTController() {}
 TTTController::~TTTController() {}
@@ -79,25 +75,64 @@ std::string TTTController::getPlayerName(int currentPlayer) {
     }
 }
 
-//TODO expected to be changed
+//done
 std::string TTTController::getAllSavedPlayers() {
     PlayerDao playerDao;
     std::list<Player> playerList = playerDao.getAllPlayers();
-    std::string playerStr;
-    playerStr += "{\"players\":[";
-    for(Player i: playerList){
-        playerStr += "{\"name\":\"" + i.getName() + "\",\"marker\":\"" + i.getSymbol() + "\"},";
-    }
-    playerStr.pop_back();
-    playerStr += "]}";
 
-    return playerStr;
+    rapidjson::Document json;
+    json.SetObject();
+    auto& allocator = json.GetAllocator();
+    rapidjson::Value players(rapidjson::kArrayType);
+    for(auto p : playerList){
+        rapidjson::Value player(rapidjson::kObjectType);
+        rapidjson::Value tmp_val;
+        tmp_val.SetString(p.getNameChar(),p.getName().length(),allocator);
+        player.AddMember("name", tmp_val, allocator);
+        tmp_val.SetString(p.getSymbolChar(),1,allocator);
+        player.AddMember("marker", tmp_val,allocator);
+        //Ultimate scores
+        rapidjson::Value ultimate(rapidjson::kObjectType);
+        ultimate.AddMember("win",tmp_val.SetInt(p.getUltStats()[0]),allocator);
+        ultimate.AddMember("loss",tmp_val.SetInt(p.getUltStats()[1]), allocator);
+        ultimate.AddMember("tie", tmp_val.SetInt(p.getUltStats()[2]), allocator);
+        //Regular scores
+        rapidjson::Value regular(rapidjson::kObjectType);
+        regular.AddMember("win", tmp_val.SetInt(p.getRegStats()[0]), allocator);
+        regular.AddMember("loss",tmp_val.SetInt(p.getRegStats()[1]), allocator);
+        regular.AddMember("tie", tmp_val.SetInt(p.getRegStats()[2]), allocator);
+        //Group scores
+        rapidjson::Value stats(rapidjson::kObjectType);
+        stats.AddMember("ultimate",ultimate,allocator);
+        stats.AddMember("regular",regular,allocator);
+
+        //Add stats to player info
+        player.AddMember("stats",stats,allocator);
+
+        //Append to final json array
+        players.PushBack(player,allocator);
+    }
+    json.AddMember("players",players,allocator);
+
+    rapidjson::StringBuffer buffer;
+    rapidjson::Writer<rapidjson::StringBuffer> writer(buffer);
+    json.Accept(writer);
+    return buffer.GetString();
+
 }
 
 //done - maybe later tweak
 void TTTController::startNewGame() {
     board = Board(player1,player2);
     bigBoard = BigBoard(player1,player2);
+}
+
+void TTTController::startNewGame(bool isGameRegular) {
+    if(isGameRegular) {
+        TTTController::isGameRegular = isGameRegular;
+        board = Board(player1,player2);
+    } else
+        bigBoard = BigBoard(player1,player2);
 }
 
 //TODO expected to be changed
@@ -115,14 +150,15 @@ bool TTTController::setSelection(std::string gameJsonObject) {
                 json.HasMember("outerCol") &&
                 json["outerRow"].IsInt() &&
                 json["outerCol"].IsInt())
-            return setSelection(json["row"].GetInt(), json["col"].GetInt(),json["outerRow"].GetInt(),json["outerCol"].GetInt(),json["currentPlayer"].GetInt());
+            return setSelectionBB(json["row"].GetInt(), json["col"].GetInt(), json["outerRow"].GetInt(),
+                                  json["outerCol"].GetInt(), json["currentPlayer"].GetInt());
         else
             return setSelection(json["row"].GetInt(), json["col"].GetInt(),json["currentPlayer"].GetInt());
     else
         return false;
 }
 
-//done
+//done -- used by Regular
 bool TTTController::setSelection(int row, int col, int currentPlayer) {
     if(!(row>=0 && row <=2 && col >=0 && col <= 2)) return false;
     switch (currentPlayer){
@@ -134,7 +170,7 @@ bool TTTController::setSelection(int row, int col, int currentPlayer) {
     }
 }
 
-//done
+//done -- used by Regular
 bool TTTController::setSelection(int pos, int currentPlayer) {
     switch(currentPlayer){
         case 1: return setSelection(player1,pos);
@@ -143,7 +179,7 @@ bool TTTController::setSelection(int pos, int currentPlayer) {
     }
 }
 
-//done
+//done -- used by Regular
 bool TTTController::setSelection(const Player &player, int pos) {
 
     std::array<Player,9> cursor;
@@ -168,8 +204,8 @@ bool TTTController::setSelection(const Player &player, int pos) {
 
 }
 
-//yet to be tested
-bool TTTController::setSelection(const Player &player, int pos, Board& board) {
+//done inherently -- used by Ultimate
+bool TTTController::setSelectionBB(const Player &player, int pos, Board &board) {
 
     std::array<Player,9> cursor;
     cursor = board.getCursor();
@@ -193,19 +229,26 @@ bool TTTController::setSelection(const Player &player, int pos, Board& board) {
 
 }
 
-
-bool TTTController::setSelection(int row, int col, int outerRow, int outerCol, int currentPlayer) {
-    int outerPos = 3*outerRow+outerCol;
-    std::array<Board,9> board = bigBoard.getLBoard();
+bool TTTController::setSelectionBB(int row, int col, int outerRow, int outerCol, int currentPlayer){
     if(!(row>=0 && row <=2 && col >=0 && col <= 2)) return false;
+    if(!(outerRow>=0 && outerRow <=2 && outerCol >=0 && outerCol <= 2)) return false;
+    int outPos = 3*outerRow+outerCol;
+    int inPos  = 3 * row + col;
+    return setSelectionBB(inPos,outPos,currentPlayer);
+}
+
+//done -- used by Ultimate
+bool TTTController::setSelectionBB(int inPos, int outPos, int currentPlayer) {
+    if(inPos<0 || inPos >8 || outPos <0 || outPos >8) return false;
+    std::array<Board,9> board = bigBoard.getLBoard();
     switch (currentPlayer) {
         case 1:
-            if( setSelection(player1, (3 * row + col),board.at(outerPos)) ){
+            if(setSelectionBB(player1, inPos, board.at(outPos)) ){
                 bigBoard.setLBoard(board);
                 return true;
             };
         case 2:
-            if( setSelection(player2, (3 * row + col),board.at(outerPos)) ){
+            if(setSelectionBB(player2, inPos, board.at(outPos)) ){
                 bigBoard.setLBoard(board);
                 return true;
             };
@@ -215,43 +258,32 @@ bool TTTController::setSelection(int row, int col, int outerRow, int outerCol, i
     }
 }
 
+
 //TODO expected to be changed
 int TTTController::determineWinner() {
-
-    std::array<Player,9> cursor;
-    cursor = board.getCursor();
-    //Check column match
-    for(int i=0, j=3, k=6; i<3; i++, j++, k++){
-        if(comparePlayers(cursor[i], cursor[j]) && comparePlayers(cursor[j], cursor[k])){
-            //std::cout << "i:" << i;
-            return comparePlayers(cursor[i], player1)?1:2;
+    //game: R - Regular, U - Ultimate
+    //result: 1 - win , 2 - loss, 3 - tie
+    PlayerDao playerDao;
+    char game_char;
+    int winner;
+    if(isGameRegular) {
+        game_char = 'R';
+        winner = determineWinner(board);
+    }else{
+        game_char = 'U';
+        winner = determineWinner(bigBoard);
+    }
+        switch (winner){
+            case 1: playerDao.updatePlayerScore(player1,game_char,1);
+                playerDao.updatePlayerScore(player2,game_char,2); break;
+            case 2: playerDao.updatePlayerScore(player1,game_char,2);
+                playerDao.updatePlayerScore(player2,game_char,1); break;
+            case 3: playerDao.updatePlayerScore(player1,game_char,3);
+                playerDao.updatePlayerScore(player2,game_char,3); break;
         }
-    }
+    return winner;
 
-    //check row match
-    for(int i=0, j=1, k=2; i<9; i+=3, j+=3, k+=3){
-        if(comparePlayers(cursor[i], cursor[j]) && comparePlayers(cursor[j], cursor[k])){
-            return comparePlayers(cursor[i], player1)?1:2;
-        }
-    }
-    //check diagonal match
-    if((comparePlayers(cursor[0], cursor[4]) && comparePlayers(cursor[4], cursor[8])) || (comparePlayers(cursor[2], cursor[4]) &&
-            comparePlayers(cursor[4], cursor[6]))){
-        return comparePlayers(cursor[4], player1)?1:2;
-    }
-
-    //Is it a draw? or still running?
-    for(int i=0; i < 9; i++){
-        if(cursor[i].getId() <0)  {return 0;}
-    }
-
-
-    //Game is draw
-    return 3;
-
-    //None of the above cases worked?
-
-
+    
 }
 
 int TTTController::determineWinner(Board& board) {
@@ -331,25 +363,32 @@ int TTTController::determineWinner(BigBoard &bigBoard) {
     //None of the above cases worked?
 }
 
-//done
+
 std::string TTTController::getGameDisplay(bool isJson) {
     if(!isJson) return getGameDisplay();
 
-    std::string cursorStr;
-    cursorStr += "{\"gameBoard\":[";
+    const std::array<Board,9>lBoard = bigBoard.getLBoard();
+    rapidjson::Document json;
+    json.SetObject();
 
-    for(int i=0; i<3; i++){
-        for(int j=0; j<3; j++){
-            cursorStr += "{\"row\":"; cursorStr += std::to_string(i) ; cursorStr+= ",\"col\":"; cursorStr+= std::to_string(j) +
-                    ",\"marker\":\""; cursorStr.push_back(board.getCursor()[3*i+j].getSymbol()); cursorStr += "\"},";
-        }
+    rapidjson::Value index, cursor;
+    std::string tmp_cursor;
+
+
+    for(unsigned int i = 0; i < 9; i++){
+        index.SetString(std::to_string(i).c_str(),1,json.GetAllocator());
+        tmp_cursor = getGameCursor(lBoard.at(i));
+        cursor.SetString(tmp_cursor.c_str(),tmp_cursor.length(),json.GetAllocator());
+        json.AddMember(index,cursor,json.GetAllocator());
     }
-    cursorStr.pop_back();
-    cursorStr += "]}";
-    return cursorStr;
+    rapidjson::StringBuffer buffer;
+    rapidjson::Writer<rapidjson::StringBuffer> writer(buffer);
+    json.Accept(writer);
+
+    return buffer.GetString();
 }
 
-std::string TTTController::getGameCursor() {
+std::string TTTController::getGameCursor(const Board& board) {
     std::array<Player,9> cursor = board.getCursor();
 
     std::string cursorStr;
@@ -481,110 +520,122 @@ void TTTController::partParseJson(std::string &json, int &key) {
 
 }
 
-int main(){
-    TTTController ttt;
-
-    std::string temp = "john2";
-    rapidjson::Document document;
-    rapidjson::StringBuffer buffer;
-    rapidjson::Writer<rapidjson::StringBuffer> writer(buffer);
-    rapidjson::Document::AllocatorType& allocator = document.GetAllocator();
-    document.SetObject();
-    rapidjson::Value tmp_val;
-    tmp_val.SetString(&temp[0],temp.length(),allocator);
-    document.AddMember("name",tmp_val,allocator);
-    document.AddMember("marker","j",allocator);
-    document.AddMember("playerNum",1, allocator);
-    document.Accept(writer);
-    ttt.createPlayer(buffer.GetString());
-    auto& val = document["playerNum"];
-    val.SetInt(2);
-    auto& val2 = document["marker"];
-    val2.SetString("a");
-    auto& val3 = document["name"];
-    val3.SetString("RV");
-    buffer.Clear();
-    writer.Reset(buffer);
-    document.Accept(writer);
-    ttt.createPlayer(buffer.GetString());
-    std::cout << (ttt.player2.getSymbol() == 'a') << std::endl;
-    ttt.startNewGame();
+//int main(){
+//    TTTController ttt;
+//
+//    std::cout << ttt.getAllSavedPlayers() <<std::endl;
+//    std::string temp = "Raghuvaran6";
+//    rapidjson::Document document;
+//    rapidjson::StringBuffer buffer;
+//    rapidjson::Writer<rapidjson::StringBuffer> writer(buffer);
+//    rapidjson::Document::AllocatorType& allocator = document.GetAllocator();
+//    document.SetObject();
+//    rapidjson::Value tmp_val;
+//    tmp_val.SetString(&temp[0],temp.length(),allocator);
+//    document.AddMember("name",tmp_val,allocator);
+//    document.AddMember("marker","j",allocator);
+//    document.AddMember("playerNum",1, allocator);
+//    document.Accept(writer);
+//    ttt.createPlayer(buffer.GetString());
+//    auto& val = document["playerNum"];
+//    val.SetInt(2);
+//    auto& val2 = document["marker"];
+//    val2.SetString("2");
+//    auto& val3 = document["name"];
+//    val3.SetString("Raghuvaran5");
+//    buffer.Clear();
+//    writer.Reset(buffer);
+//    document.Accept(writer);
+//    ttt.createPlayer(buffer.GetString());
+//    std::cout << (ttt.player2.getSymbol() == 'R') << std::endl;
+//    ttt.startNewGame(0);
     //diagonal check
-//    std::cout << ttt.setSelection(0,0,0,0,1);
-//    std::cout << ttt.setSelection(1,1,0,0,1);
-//    std::cout << ttt.setSelection(2,2,0,0,1);
+//    std::cout << ttt.setSelectionBB(0,0,0,0,2);
+//    std::cout << ttt.setSelectionBB(1,1,0,0,2);
+//    std::cout << ttt.setSelectionBB(2,2,0,0,2);
 //
-//    std::cout << ttt.setSelection(0,0,1,1,1);
-//    std::cout << ttt.setSelection(1,1,1,1,1);
-//    std::cout << ttt.setSelection(2,2,1,1,1);
+//    std::cout << ttt.setSelectionBB(0,0,1,1,2);
+//    std::cout << ttt.setSelectionBB(1,1,1,1,2);
+//    std::cout << ttt.setSelectionBB(2,2,1,1,2);
 //
-//    std::cout << ttt.setSelection(0,0,2,2,1);
-//    std::cout << ttt.setSelection(1,1,2,2,1);
-//    std::cout << ttt.setSelection(2,2,2,2,1);
+//    std::cout << ttt.setSelectionBB(0,0,2,2,2);
+//    std::cout << ttt.setSelectionBB(1,1,2,2,2);
+//    std::cout << ttt.setSelectionBB(2,2,2,2,2);
 
     //column check
-//    std::cout << ttt.setSelection(0,0,0,0,1);
-//    std::cout << ttt.setSelection(0,1,0,0,1);
-//    std::cout << ttt.setSelection(0,2,0,0,1);
+//    std::cout << ttt.setSelectionBB(0,0,0,0,1);
+//    std::cout << ttt.setSelectionBB(0,1,0,0,1);
+//    std::cout << ttt.setSelectionBB(0,2,0,0,1);
 //
-//    std::cout << ttt.setSelection(0,0,1,0,1);
-//    std::cout << ttt.setSelection(0,1,1,0,1);
-//    std::cout << ttt.setSelection(0,2,1,0,1);
+//    std::cout << ttt.setSelectionBB(0,0,1,0,1);
+//    std::cout << ttt.setSelectionBB(0,1,1,0,1);
+//    std::cout << ttt.setSelectionBB(0,2,1,0,1);
 //
-//    std::cout << ttt.setSelection(0,0,2,0,1);
-//    std::cout << ttt.setSelection(0,1,2,0,1);
-//    std::cout << ttt.setSelection(0,2,2,0,1);
+//    std::cout << ttt.setSelectionBB(0,0,2,0,1);
+//    std::cout << ttt.setSelectionBB(0,1,2,0,1);
+//    std::cout << ttt.setSelectionBB(0,2,2,0,1);
 
     //row check
-//    std::cout << ttt.setSelection(0,0,0,0,1);
-//    std::cout << ttt.setSelection(1,0,0,0,1);
-//    std::cout << ttt.setSelection(2,0,0,0,1);
+//    std::cout << ttt.setSelectionBB(0,0,0,0,1);
+//    std::cout << ttt.setSelectionBB(1,0,0,0,1);
+//    std::cout << ttt.setSelectionBB(2,0,0,0,1);
 //
-//    std::cout << ttt.setSelection(0,0,0,1,1);
-//    std::cout << ttt.setSelection(1,0,0,1,1);
-//    std::cout << ttt.setSelection(2,0,0,1,1);
+//    std::cout << ttt.setSelectionBB(0,0,0,1,1);
+//    std::cout << ttt.setSelectionBB(1,0,0,1,1);
+//    std::cout << ttt.setSelectionBB(2,0,0,1,1);
 //
-//    std::cout << ttt.setSelection(0,0,0,2,1);
-//    std::cout << ttt.setSelection(1,0,0,2,1);
-//    std::cout << ttt.setSelection(2,0,0,2,1);
+//    std::cout << ttt.setSelectionBB(0,0,0,2,1);
+//    std::cout << ttt.setSelectionBB(1,0,0,2,1);
+//    std::cout << ttt.setSelectionBB(2,0,0,2,1);
 
     //tie 1
 //
-    std::cout << ttt.setSelection(0,0,0,0,1);
-    std::cout << ttt.setSelection(1,1,0,0,1);
-    std::cout << ttt.setSelection(2,2,0,0,1);
-    std::cout << ttt.setSelection(0,0,0,1,2);
-    std::cout << ttt.setSelection(1,1,0,1,2);
-    std::cout << ttt.setSelection(2,2,0,1,2);
-    std::cout << ttt.setSelection(0,0,0,2,1);
-    std::cout << ttt.setSelection(1,1,0,2,1);
-    std::cout << ttt.setSelection(2,2,0,2,1);
-
-    std::cout << ttt.setSelection(0,0,1,0,2);
-    std::cout << ttt.setSelection(1,1,1,0,2);
-    std::cout << ttt.setSelection(2,2,1,0,2);
-    std::cout << ttt.setSelection(0,0,1,1,2);
-    std::cout << ttt.setSelection(1,1,1,1,2);
-    std::cout << ttt.setSelection(2,2,1,1,2);
-    std::cout << ttt.setSelection(0,0,1,2,1);
-    std::cout << ttt.setSelection(1,1,1,2,1);
-    std::cout << ttt.setSelection(2,2,1,2,1);
-
-    std::cout << ttt.setSelection(0,0,2,0,1);
-    std::cout << ttt.setSelection(1,1,2,0,1);
-    std::cout << ttt.setSelection(2,2,2,0,1);
-    std::cout << ttt.setSelection(0,0,2,1,1);
-    std::cout << ttt.setSelection(1,1,2,1,1);
-    std::cout << ttt.setSelection(2,2,2,1,1);
-    std::cout << ttt.setSelection(0,0,2,2,2);
-    std::cout << ttt.setSelection(1,1,2,2,2);
-    std::cout << ttt.setSelection(2,2,2,2,2);
-
-
-
-    std::cout << ttt.getGameDisplay(ttt.bigBoard) << std::endl;
-    std::cout << ttt.determineWinner(ttt.bigBoard) << std::endl;
-
+//    std::cout << ttt.setSelectionBB(0,0,0,0,1);
+//    std::cout << ttt.setSelectionBB(1,1,0,0,1);
+//    std::cout << ttt.setSelectionBB(2,2,0,0,1);
+//    std::cout << ttt.setSelectionBB(0,0,0,1,2);
+//    std::cout << ttt.setSelectionBB(1,1,0,1,2);
+//    std::cout << ttt.setSelectionBB(2,2,0,1,2);
+//    std::cout << ttt.setSelectionBB(0,0,0,2,1);
+//    std::cout << ttt.setSelectionBB(1,1,0,2,1);
+//    std::cout << ttt.setSelectionBB(2,2,0,2,1);
+//
+//    std::cout << ttt.setSelectionBB(0,0,1,0,2);
+//    std::cout << ttt.setSelectionBB(1,1,1,0,2);
+//    std::cout << ttt.setSelectionBB(2,2,1,0,2);
+//    std::cout << ttt.setSelectionBB(0,0,1,1,2);
+//    std::cout << ttt.setSelectionBB(1,1,1,1,2);
+//    std::cout << ttt.setSelectionBB(2,2,1,1,2);
+//    std::cout << ttt.setSelectionBB(0,0,1,2,1);
+//    std::cout << ttt.setSelectionBB(1,1,1,2,1);
+//    std::cout << ttt.setSelectionBB(2,2,1,2,1);
+//
+//    std::cout << ttt.setSelectionBB(0,0,2,0,1);
+////    std::cout << ttt.setSelection(1,1,2,0,1);
+//    std::cout << ttt.setSelection("{\"row\":1,\"col\":1,\"currentPlayer\":1,\"outerRow\":2,\"outerCol\":0}");
+//    std::cout << ttt.setSelectionBB(2,2,2,0,1);
+//    std::cout << ttt.setSelectionBB(0,0,2,1,1);
+//    std::cout << ttt.setSelectionBB(1,1,2,1,1);
+//    std::cout << ttt.setSelectionBB(2,2,2,1,1);
+//    std::cout << ttt.setSelectionBB(0,0,2,2,2);
+//    std::cout << ttt.setSelectionBB(1,1,2,2,2);
+//    std::cout << ttt.setSelectionBB(2,2,2,2,2);
 //
 //
-}
+//
+//    std::cout << ttt.getGameDisplay(ttt.bigBoard) << std::endl;
+//    std::cout << ttt.determineWinner() << std::endl;
+//
+//    std::cout << ttt.getGameDisplay(true) << std::endl;
+
+//
+//    rapidjson::Document document1;
+//    std::string sample = "{\"identifier\":\"P\",\"gameType\":\"U\",\"player1\":{\"name\":\"Raghu\",\"marker\":9},\"player2\":{\"name\":\"Raghu\",\"marker\":9},\"cursors\":{\"0\":{\"cursor\":110011022}}}";
+//    document1.Parse(sample.c_str());
+//    int i = 0;
+//    std::cout << document1["cursors"][std::to_string(i).c_str()]["cursor"].GetInt();
+//
+//
+//
+//
+//}

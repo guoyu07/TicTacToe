@@ -7,12 +7,10 @@
 
 
 #include <string>
-#include "../model/Player.h"
-#include "../model/Board.h"
 #include "../model/BigBoard.h"
 
 class TTTController {
-    bool isGameRegular;
+    bool isGameRegular = false;
 
 public:
     Player player1, player2;
@@ -27,15 +25,18 @@ public:
 
     std::string getPlayerName(int currentPlayer);
     std::string getAllSavedPlayers();                       //required
+
     void startNewGame();                                    //required
+    void startNewGame(bool isGameRegular);
 
 
     bool setSelection(std::string gameJsonObject);          //required
     bool setSelection(int row, int col, int currentPlayer); //required
     bool setSelection(int pos, int currentPlayer);
     bool setSelection(const Player& player,int pos);
-    bool setSelection(const Player &player, int pos, Board& board);
-    bool setSelection(int row, int col, int outerRow, int outerCol, int currentPlayer);
+    bool setSelectionBB(const Player &player, int pos, Board &board);
+    bool setSelectionBB(int inPos, int outPos, int currentPlayer);
+    bool setSelectionBB(int row, int col, int outerRow, int outerCol, int currentPlayer);
 
 
     int determineWinner();                                  //required
@@ -46,7 +47,7 @@ public:
     std::string getGameDisplay();                           //required
     std::string getGameDisplay(Board& board);
     std::string getGameDisplay(BigBoard& bigBoard);
-    std::string getGameCursor();
+    std::string getGameCursor(const Board& board);
 
 
     bool comparePlayers(const Player &, const Player &);

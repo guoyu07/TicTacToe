@@ -10,6 +10,8 @@
 #include <fstream>
 #include "Player.h"
 #include "../lib/rapidjson/document.h"
+#include "../lib/rapidjson/writer.h"
+#include "../lib/rapidjson/stringbuffer.h"
 
 class PlayerDao {
     std::string fileName = "filePlayers.txt", temp_fileName = "filePlayers_temp.txt";

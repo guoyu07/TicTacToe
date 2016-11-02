@@ -6,9 +6,6 @@
 #include <iostream>
 #include <cstdio>
 #include "PlayerDao.h"
-#include "../lib/rapidjson/document.h"
-#include "../lib/rapidjson/writer.h"
-#include "../lib/rapidjson/stringbuffer.h"
 
 bool PlayerDao::createNewPlayer_old(Player &player) {
     if(isPresent(player.getName())) return false;
@@ -83,6 +80,7 @@ Player PlayerDao::getPlayer(std::string name) {
     return Player();
 }
 
+//obsolete
 std::list<Player> PlayerDao::getAllPlayers_old() {
     std::list<Player> playersList;
     if(!inFile.is_open()){inFile.open(fileName);}
@@ -165,7 +163,7 @@ bool PlayerDao::updatePlayerScore(Player &player, char game, int result) {
             inFile.close();
             outFile.close();
             auto success = std::rename(temp_fileName.c_str(),fileName.c_str());
-            assert(!success);
+           // assert(!success);
             return true;
 
         }
