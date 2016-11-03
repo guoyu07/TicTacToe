@@ -1,0 +1,20 @@
+td {
+	border-width: 1px;
+	border-style: solid;
+	width: 50px;
+	height: 50px;
+}
+.outer > .row > .inner {
+	margin-right: 1px;
+	margin-bottom: 1px;
+	margin-left: 1px;
+	margin-top: 1px;
+}
+.outer {
+	border-width: 1px;
+	border-style: solid;
+}
+.inner {
+	border-width: 1px;
+	border-style: solid;
+}
