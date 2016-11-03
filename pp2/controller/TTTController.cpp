@@ -370,16 +370,30 @@ std::string TTTController::getGameDisplay(bool isJson) {
     const std::array<Board,9>lBoard = bigBoard.getLBoard();
     rapidjson::Document json;
     json.SetObject();
+    auto& allocator = json.GetAllocator();
 
-    rapidjson::Value index, cursor;
+    rapidjson::Value index, cursor, winner;
+    rapidjson::Value boardCursor;
+    boardCursor.SetObject();
     std::string tmp_cursor;
 
 
     for(unsigned int i = 0; i < 9; i++){
-        index.SetString(std::to_string(i).c_str(),1,json.GetAllocator());
-        tmp_cursor = getGameCursor(lBoard.at(i));
-        cursor.SetString(tmp_cursor.c_str(),tmp_cursor.length(),json.GetAllocator());
-        json.AddMember(index,cursor,json.GetAllocator());
+        boardCursor.SetObject();
+        boardCursor.RemoveAllMembers();
+
+        Board b = lBoard.at(i);
+
+        index.SetString(std::to_string(i).c_str(),1,allocator);
+        tmp_cursor = getGameCursor(b);
+
+        winner.SetInt(determineWinner(b));
+        cursor.SetString(tmp_cursor.c_str(),tmp_cursor.length(),allocator);
+
+        boardCursor.AddMember("cursor",cursor,allocator);
+        boardCursor.AddMember("winner",winner,allocator);
+
+        json.AddMember(index,boardCursor,allocator);
     }
     rapidjson::StringBuffer buffer;
     rapidjson::Writer<rapidjson::StringBuffer> writer(buffer);
