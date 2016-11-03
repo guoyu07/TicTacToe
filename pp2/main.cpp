@@ -20,6 +20,11 @@ int main() {
     //receive json into string
     std::stringstream inBuff;
 
+    /*
+     * Test input string:
+     * {"identifier":"P","gameType":"U","player1":{"name":"Raghuvaran6","marker":"R"},"player2":{"name":"Raghuvaran5","marker":"V"},"cursors":{"0":{"cursor":"121212121"},"1":{"cursor":"222000000"},"2":{"cursor":"121212121"},"3":{"cursor":"121212121"},"4":{"cursor":"011222001"},"5":{"cursor":"121222121"},"6":{"cursor":"121222121"},"7":{"cursor":"110221111"},"8":{"cursor":"121212121"}}}
+     * */
+
     std::string inJsonRequest = inBuff.str();
     std::cin >> inJsonRequest;
     rapidjson::Document json;
@@ -70,18 +75,26 @@ int main() {
             // return boards with respective cursors and winner
             rapidjson::Document returnJson;
             returnJson.SetObject();
+
             std::string gameDisplay = tttController.getGameDisplay(true);
             json.Parse(gameDisplay.c_str());
             rapidjson::Value& tmp_val = json;
-            //tmp_val.SetString(gameDisplay.c_str(),gameDisplay.length(),returnJson.GetAllocator());
             returnJson.AddMember("cursors",tmp_val,returnJson.GetAllocator());
             int winner = tttController.determineWinner();
             tmp_val.SetInt(winner);
             returnJson.AddMember("winner",tmp_val,returnJson.GetAllocator());
+
             rapidjson::StringBuffer buffer;
             rapidjson::Writer<rapidjson::StringBuffer> writer(buffer);
             returnJson.Accept(writer);
+
             std::cout << buffer.GetString();
+
+            /*Expected output for test input:
+             *
+             * {"cursors":{"0":{"cursor":"121212121","winner":1},"1":{"cursor":"222000000","winner":2},"2":{"cursor":"121212121","winner":1},"3":{"cursor":"121212121","winner":1},"4":{"cursor":"011222001","winner":2},"5":{"cursor":"121222121","winner":2},"6":{"cursor":"121222121","winner":2},"7":{"cursor":"110221111","winner":1},"8":{"cursor":"121212121","winner":1}},"winner":3}
+
+             * */
 
             break;
         }
