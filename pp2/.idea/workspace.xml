@@ -14,113 +14,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="efb7aa7f-b7f6-4b63-a630-a68c7a724503" name="Default" comment="It says modified and I am committing">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../README" afterPath="$PROJECT_DIR$/../README" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../TicTacToe/controller/.nfs000000000124ffff0000fc20" afterPath="$PROJECT_DIR$/../TicTacToe/controller/.nfs000000000124ffff0000fc20" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../TicTacToe/ttt" afterPath="$PROJECT_DIR$/../TicTacToe/ttt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../classNotes/10_10/graph.png" afterPath="$PROJECT_DIR$/../classNotes/10_10/graph.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../classNotes/9_19/a.out" afterPath="$PROJECT_DIR$/../classNotes/9_19/a.out" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DW/fonts/glyphicons-halflings-regular.eot" afterPath="$PROJECT_DIR$/DW/fonts/glyphicons-halflings-regular.eot" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DW/fonts/glyphicons-halflings-regular.ttf" afterPath="$PROJECT_DIR$/DW/fonts/glyphicons-halflings-regular.ttf" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DW/fonts/glyphicons-halflings-regular.woff" afterPath="$PROJECT_DIR$/DW/fonts/glyphicons-halflings-regular.woff" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DW/fonts/glyphicons-halflings-regular.woff2" afterPath="$PROJECT_DIR$/DW/fonts/glyphicons-halflings-regular.woff2" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/view/fonts/glyphicons-halflings-regular.eot" afterPath="$PROJECT_DIR$/view/fonts/glyphicons-halflings-regular.eot" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/view/fonts/glyphicons-halflings-regular.ttf" afterPath="$PROJECT_DIR$/view/fonts/glyphicons-halflings-regular.ttf" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/view/fonts/glyphicons-halflings-regular.woff" afterPath="$PROJECT_DIR$/view/fonts/glyphicons-halflings-regular.woff" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/view/fonts/glyphicons-halflings-regular.woff2" afterPath="$PROJECT_DIR$/view/fonts/glyphicons-halflings-regular.woff2" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../TicTacToe/Makefile" afterPath="$PROJECT_DIR$/../TicTacToe/Makefile" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../TicTacToe/controller/TTTController.cpp" afterPath="$PROJECT_DIR$/../TicTacToe/controller/TTTController.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../TicTacToe/controller/TTTController.h" afterPath="$PROJECT_DIR$/../TicTacToe/controller/TTTController.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../TicTacToe/controller/ttt_controller.cpp" afterPath="$PROJECT_DIR$/../TicTacToe/controller/ttt_controller.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../TicTacToe/controller/ttt_controller.h" afterPath="$PROJECT_DIR$/../TicTacToe/controller/ttt_controller.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../TicTacToe/controller/ttt_controller.h.gch" afterPath="$PROJECT_DIR$/../TicTacToe/controller/ttt_controller.h.gch" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../TicTacToe/main.cpp" afterPath="$PROJECT_DIR$/../TicTacToe/main.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../TicTacToe/model/Board.cpp" afterPath="$PROJECT_DIR$/../TicTacToe/model/Board.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../TicTacToe/model/Board.h" afterPath="$PROJECT_DIR$/../TicTacToe/model/Board.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../TicTacToe/model/Player.cpp" afterPath="$PROJECT_DIR$/../TicTacToe/model/Player.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../TicTacToe/model/Player.h" afterPath="$PROJECT_DIR$/../TicTacToe/model/Player.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../TicTacToe/sampleTest.cpp" afterPath="$PROJECT_DIR$/../TicTacToe/sampleTest.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../classNotes/10_10/client_server.ps" afterPath="$PROJECT_DIR$/../classNotes/10_10/client_server.ps" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../classNotes/9_19/fileIO.cpp" afterPath="$PROJECT_DIR$/../classNotes/9_19/fileIO.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../classNotes/9_19/output.dat" afterPath="$PROJECT_DIR$/../classNotes/9_19/output.dat" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" afterPath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/libraries/jquery.xml" afterPath="$PROJECT_DIR$/.idea/libraries/jquery.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/modules.xml" afterPath="$PROJECT_DIR$/.idea/modules.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/pp2.iml" afterPath="$PROJECT_DIR$/.idea/pp2.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/vcs.xml" afterPath="$PROJECT_DIR$/.idea/vcs.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/CMakeLists.txt" afterPath="$PROJECT_DIR$/CMakeLists.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DW/css/bootstrap.css" afterPath="$PROJECT_DIR$/DW/css/bootstrap.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DW/css/style.css" afterPath="$PROJECT_DIR$/DW/css/style.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DW/fonts/glyphicons-halflings-regular.svg" afterPath="$PROJECT_DIR$/DW/fonts/glyphicons-halflings-regular.svg" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DW/js/bootstrap.js" afterPath="$PROJECT_DIR$/DW/js/bootstrap.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DW/js/jquery-1.11.3.min.js" afterPath="$PROJECT_DIR$/DW/js/jquery-1.11.3.min.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DW/js/script.js" afterPath="$PROJECT_DIR$/DW/js/script.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DW/regular.html" afterPath="$PROJECT_DIR$/DW/regular.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/DW/ultimate.html" afterPath="$PROJECT_DIR$/DW/ultimate.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Makefile" afterPath="$PROJECT_DIR$/Makefile" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/controller/TTTController.cpp" afterPath="$PROJECT_DIR$/controller/TTTController.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/controller/TTTController.h" afterPath="$PROJECT_DIR$/controller/TTTController.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/rapidjson/allocators.h" afterPath="$PROJECT_DIR$/lib/rapidjson/allocators.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/rapidjson/document.h" afterPath="$PROJECT_DIR$/lib/rapidjson/document.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/rapidjson/encodedstream.h" afterPath="$PROJECT_DIR$/lib/rapidjson/encodedstream.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/rapidjson/encodings.h" afterPath="$PROJECT_DIR$/lib/rapidjson/encodings.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/rapidjson/error/en.h" afterPath="$PROJECT_DIR$/lib/rapidjson/error/en.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/rapidjson/error/error.h" afterPath="$PROJECT_DIR$/lib/rapidjson/error/error.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/rapidjson/filereadstream.h" afterPath="$PROJECT_DIR$/lib/rapidjson/filereadstream.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/rapidjson/filewritestream.h" afterPath="$PROJECT_DIR$/lib/rapidjson/filewritestream.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/rapidjson/fwd.h" afterPath="$PROJECT_DIR$/lib/rapidjson/fwd.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/rapidjson/internal/biginteger.h" afterPath="$PROJECT_DIR$/lib/rapidjson/internal/biginteger.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/rapidjson/internal/diyfp.h" afterPath="$PROJECT_DIR$/lib/rapidjson/internal/diyfp.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/rapidjson/internal/dtoa.h" afterPath="$PROJECT_DIR$/lib/rapidjson/internal/dtoa.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/rapidjson/internal/ieee754.h" afterPath="$PROJECT_DIR$/lib/rapidjson/internal/ieee754.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/rapidjson/internal/itoa.h" afterPath="$PROJECT_DIR$/lib/rapidjson/internal/itoa.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/rapidjson/internal/meta.h" afterPath="$PROJECT_DIR$/lib/rapidjson/internal/meta.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/rapidjson/internal/pow10.h" afterPath="$PROJECT_DIR$/lib/rapidjson/internal/pow10.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/rapidjson/internal/regex.h" afterPath="$PROJECT_DIR$/lib/rapidjson/internal/regex.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/rapidjson/internal/stack.h" afterPath="$PROJECT_DIR$/lib/rapidjson/internal/stack.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/rapidjson/internal/strfunc.h" afterPath="$PROJECT_DIR$/lib/rapidjson/internal/strfunc.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/rapidjson/internal/strtod.h" afterPath="$PROJECT_DIR$/lib/rapidjson/internal/strtod.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/rapidjson/internal/swap.h" afterPath="$PROJECT_DIR$/lib/rapidjson/internal/swap.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/rapidjson/istreamwrapper.h" afterPath="$PROJECT_DIR$/lib/rapidjson/istreamwrapper.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/rapidjson/memorybuffer.h" afterPath="$PROJECT_DIR$/lib/rapidjson/memorybuffer.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/rapidjson/memorystream.h" afterPath="$PROJECT_DIR$/lib/rapidjson/memorystream.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/rapidjson/msinttypes/inttypes.h" afterPath="$PROJECT_DIR$/lib/rapidjson/msinttypes/inttypes.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/rapidjson/msinttypes/stdint.h" afterPath="$PROJECT_DIR$/lib/rapidjson/msinttypes/stdint.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/rapidjson/ostreamwrapper.h" afterPath="$PROJECT_DIR$/lib/rapidjson/ostreamwrapper.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/rapidjson/pointer.h" afterPath="$PROJECT_DIR$/lib/rapidjson/pointer.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/rapidjson/prettywriter.h" afterPath="$PROJECT_DIR$/lib/rapidjson/prettywriter.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/rapidjson/rapidjson.h" afterPath="$PROJECT_DIR$/lib/rapidjson/rapidjson.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/rapidjson/reader.h" afterPath="$PROJECT_DIR$/lib/rapidjson/reader.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/rapidjson/schema.h" afterPath="$PROJECT_DIR$/lib/rapidjson/schema.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/rapidjson/stream.h" afterPath="$PROJECT_DIR$/lib/rapidjson/stream.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/rapidjson/stringbuffer.h" afterPath="$PROJECT_DIR$/lib/rapidjson/stringbuffer.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/lib/rapidjson/writer.h" afterPath="$PROJECT_DIR$/lib/rapidjson/writer.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main.cpp" afterPath="$PROJECT_DIR$/main.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/main_cli.cpp" afterPath="$PROJECT_DIR$/main_cli.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/model/BigBoard.cpp" afterPath="$PROJECT_DIR$/model/BigBoard.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/model/BigBoard.h" afterPath="$PROJECT_DIR$/model/BigBoard.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/model/Board.cpp" afterPath="$PROJECT_DIR$/model/Board.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/model/Board.h" afterPath="$PROJECT_DIR$/model/Board.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/model/Player.cpp" afterPath="$PROJECT_DIR$/model/Player.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/model/Player.h" afterPath="$PROJECT_DIR$/model/Player.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/model/PlayerDao.cpp" afterPath="$PROJECT_DIR$/model/PlayerDao.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/model/PlayerDao.h" afterPath="$PROJECT_DIR$/model/PlayerDao.h" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/sampleTest.cpp" afterPath="$PROJECT_DIR$/sampleTest.cpp" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/view/cgi-bin/filePlayers.txt" afterPath="$PROJECT_DIR$/view/cgi-bin/filePlayers.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/view/cgi-bin/log.txt" afterPath="$PROJECT_DIR$/view/cgi-bin/log.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/view/cgi-bin/ttt.cgi" afterPath="$PROJECT_DIR$/view/cgi-bin/ttt.cgi" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/view/css/bootstrap.css" afterPath="$PROJECT_DIR$/view/css/bootstrap.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/view/css/delete.css" afterPath="$PROJECT_DIR$/view/css/delete.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/view/css/style.css" afterPath="$PROJECT_DIR$/view/css/style.css" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/view/fonts/glyphicons-halflings-regular.svg" afterPath="$PROJECT_DIR$/view/fonts/glyphicons-halflings-regular.svg" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/view/index.html" afterPath="$PROJECT_DIR$/view/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/view/js/bootstrap.js" afterPath="$PROJECT_DIR$/view/js/bootstrap.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/view/js/jquery-1.11.3.min.js" afterPath="$PROJECT_DIR$/view/js/jquery-1.11.3.min.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/view/js/script.js" afterPath="$PROJECT_DIR$/view/js/script.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/view/test.html" afterPath="$PROJECT_DIR$/view/test.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../pp2_her/web.txt" afterPath="$PROJECT_DIR$/../pp2_her/web.txt" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/../pp2_her/web_auto.txt" afterPath="$PROJECT_DIR$/../pp2_her/web_auto.txt" />
     </list>
     <list id="8661cf41-8360-4280-a18e-cf28e0044b92" name="Rejected commit: Default" comment="It says modified and I am committing" />
     <ignored path="pp2.iws" />
@@ -144,7 +40,7 @@
       <file leaf-file-name="TTTController.h" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/controller/TTTController.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="714">
+            <state relative-caret-position="630">
               <caret line="42" column="24" selection-start-line="42" selection-start-column="24" selection-end-line="42" selection-end-column="24" />
               <folding>
                 <element signature="e#114#131#0" expanded="true" />
@@ -153,45 +49,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="script.js" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/DW/js/script.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2550">
-              <caret line="233" column="5" selection-start-line="233" selection-start-column="5" selection-end-line="233" selection-end-column="5" />
-              <folding>
-                <element signature="e#1163#2178#0" expanded="false" />
-                <element signature="e#2696#3937#0" expanded="false" />
-                <element signature="e#3971#4561#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="script.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/view/js/script.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="102">
-              <caret line="120" column="0" selection-start-line="120" selection-start-column="0" selection-end-line="120" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ultimate.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/DW/ultimate.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="TTTController.cpp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/controller/TTTController.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-525">
-              <caret line="271" column="10" selection-start-line="271" selection-start-column="10" selection-end-line="271" selection-end-column="10" />
+            <state relative-caret-position="1515">
+              <caret line="314" column="5" selection-start-line="314" selection-start-column="5" selection-end-line="314" selection-end-column="5" />
               <folding>
                 <element signature="e#0#2#0" expanded="false" />
                 <element signature="e#229#1026#0" expanded="false" />
@@ -211,9 +73,11 @@
                 <element signature="e#12755#13152#0" expanded="false" />
                 <element signature="e#13154#14454#0" expanded="false" />
                 <element signature="e#14456#15761#0" expanded="false" />
+                <element signature="e#15763#16027#0" expanded="false" />
                 <element signature="e#16148#16379#0" expanded="false" />
                 <element signature="e#16381#17109#0" expanded="false" />
                 <element signature="e#17111#17883#0" expanded="false" />
+                <marker date="1478266468068" expanded="true" signature="16106:16146" ph="{...}" />
               </folding>
             </state>
           </provider>
@@ -222,8 +86,8 @@
       <file leaf-file-name="main.cpp" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/main.cpp">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="0">
-              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+            <state relative-caret-position="285">
+              <caret line="67" column="0" selection-start-line="67" selection-start-column="0" selection-end-line="67" selection-end-column="0" />
               <folding>
                 <element signature="e#0#19#0" expanded="true" />
               </folding>
@@ -231,14 +95,65 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Board.cpp" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/model/Board.cpp">
+      <file leaf-file-name="script.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/view/js/script.js">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="901">
-              <caret line="53" column="0" selection-start-line="53" selection-start-column="0" selection-end-line="53" selection-end-column="0" />
+            <state relative-caret-position="2700">
+              <caret line="213" column="104" selection-start-line="213" selection-start-column="24" selection-end-line="213" selection-end-column="104" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="script.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/DW/js/script.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="671">
+              <caret line="259" column="31" selection-start-line="259" selection-start-column="31" selection-end-line="259" selection-end-column="31" />
               <folding>
-                <element signature="e#40#59#0" expanded="true" />
+                <element signature="e#1181#2196#0" expanded="false" />
+                <element signature="e#2241#2390#0" expanded="false" />
               </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Makefile" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Makefile">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="403">
+              <caret line="34" column="0" selection-start-line="34" selection-start-column="0" selection-end-line="34" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Player.h" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/model/Player.h">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="735">
+              <caret line="49" column="0" selection-start-line="49" selection-start-column="0" selection-end-line="49" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CMakeLists.txt" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="75">
+              <caret line="5" column="218" selection-start-line="5" selection-start-column="207" selection-end-line="5" selection-end-column="218" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="ultimate.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/DW/ultimate.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="-855">
+              <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
             </state>
           </provider>
         </entry>
@@ -246,7 +161,7 @@
       <file leaf-file-name="Board.h" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/model/Board.h">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="493">
+            <state relative-caret-position="405">
               <caret line="29" column="4" selection-start-line="29" selection-start-column="4" selection-end-line="29" selection-end-column="4" />
               <folding />
             </state>
@@ -282,15 +197,15 @@
         <option value="$PROJECT_DIR$/model/PlayerDao.h" />
         <option value="$PROJECT_DIR$/model/PlayerDao.cpp" />
         <option value="$PROJECT_DIR$/CMakeLists.txt" />
-        <option value="$PROJECT_DIR$/Makefile" />
         <option value="$PROJECT_DIR$/model/Board.cpp" />
         <option value="$PROJECT_DIR$/model/Board.h" />
         <option value="$PROJECT_DIR$/controller/TTTController.h" />
-        <option value="$PROJECT_DIR$/main.cpp" />
+        <option value="$PROJECT_DIR$/controller/TTTController.cpp" />
         <option value="$PROJECT_DIR$/dw/css/style.css" />
         <option value="$PROJECT_DIR$/dw/ultimate.html" />
         <option value="$PROJECT_DIR$/dw/js/script.js" />
-        <option value="$PROJECT_DIR$/controller/TTTController.cpp" />
+        <option value="$PROJECT_DIR$/main.cpp" />
+        <option value="$PROJECT_DIR$/Makefile" />
         <option value="$PROJECT_DIR$/DW/js/script.js" />
       </list>
     </option>
@@ -306,10 +221,9 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="-8" />
-    <option name="y" value="-8" />
-    <option name="width" value="1382" />
-    <option name="height" value="744" />
+    <option name="x" value="1679" />
+    <option name="width" value="1682" />
+    <option name="height" value="1054" />
   </component>
   <component name="ProjectInspectionProfilesVisibleTreeState">
     <entry key="Project Default">
@@ -386,38 +300,6 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="view" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="pp2" />
-              <option name="myItemType" value="com.jetbrains.cidr.projectView.CidrFilesViewHelper$MyProjectTreeStructure$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="pp2" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="view" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="js" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="pp2" />
-              <option name="myItemType" value="com.jetbrains.cidr.projectView.CidrFilesViewHelper$MyProjectTreeStructure$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="pp2" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
               <option name="myItemId" value="model" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -433,24 +315,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="DW" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="pp2" />
-              <option name="myItemType" value="com.jetbrains.cidr.projectView.CidrFilesViewHelper$MyProjectTreeStructure$1" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="pp2" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="DW" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="js" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -703,14 +567,12 @@
       <workItem from="1478055563326" duration="4362000" />
       <workItem from="1478093587885" duration="20577000" />
       <workItem from="1478129554047" duration="1257000" />
-      <workItem from="1478181522685" duration="18659000" />
-      <workItem from="1478212871751" duration="2598000" />
-      <workItem from="1478221466557" duration="8520000" />
+      <workItem from="1478181522685" duration="25696000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="221382000" />
+    <option name="totallyTimeSpent" value="217301000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -722,26 +584,26 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
-    <editor active="false" />
+    <frame x="1679" y="0" width="1682" height="1054" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.13392857" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.13502109" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3289689" sideWeight="0.4955357" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24386252" sideWeight="0.49707174" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.24465811" sideWeight="0.49707174" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="CMake" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32724252" sideWeight="0.5" order="11" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3289689" sideWeight="0.50446427" order="8" side_tool="true" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3289689" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.28477904" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2863248" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32890365" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39116204" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39209402" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3289689" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
     </layout>
     <layout-to-restore>
@@ -785,61 +647,20 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/controller/TTTController.cpp</url>
-          <line>328</line>
-          <option name="timeStamp" value="59" />
+          <line>369</line>
+          <option name="timeStamp" value="56" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="com.jetbrains.cidr.execution.debugger.OCBreakpointType">
           <url>file://$PROJECT_DIR$/controller/TTTController.cpp</url>
-          <line>344</line>
-          <option name="timeStamp" value="60" />
+          <line>383</line>
+          <option name="timeStamp" value="58" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="61" />
+      <option name="time" value="59" />
     </breakpoint-manager>
-    <watches-manager>
-      <configuration name="CMakeRunConfiguration">
-        <watch expression="bigBoard.lBoard._M_elems[1].winner" />
-      </configuration>
-    </watches-manager>
+    <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/controller/TTTController.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1683">
-          <caret line="99" column="32" selection-start-line="99" selection-start-column="32" selection-end-line="99" selection-end-column="32" />
-          <folding>
-            <element signature="e#0#2#0" expanded="false" />
-            <element signature="e#229#1026#0" expanded="false" />
-            <element signature="e#1028#1599#0" expanded="false" />
-            <element signature="e#1601#1911#0" expanded="false" />
-            <element signature="e#1913#2144#0" expanded="false" />
-            <element signature="e#2146#4028#0" expanded="false" />
-            <element signature="e#4030#4173#0" expanded="false" />
-            <element signature="e#4175#4406#0" expanded="false" />
-            <element signature="e#4408#5326#0" expanded="false" />
-            <element signature="e#5328#5751#0" expanded="false" />
-            <element signature="e#5753#6007#0" expanded="false" />
-            <element signature="e#6009#6651#0" expanded="false" />
-            <element signature="e#6653#7323#0" expanded="false" />
-            <element signature="e#7325#7704#0" expanded="false" />
-            <element signature="e#7706#8418#0" expanded="false" />
-            <element signature="e#12755#13152#0" expanded="false" />
-            <element signature="e#13154#14454#0" expanded="false" />
-            <element signature="e#14456#15761#0" expanded="false" />
-            <element signature="e#16148#16379#0" expanded="false" />
-            <element signature="e#16381#17109#0" expanded="false" />
-            <element signature="e#17111#17883#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/model/PlayerDao.cpp">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1105">
-          <caret line="65" column="21" selection-start-line="65" selection-start-column="21" selection-end-line="65" selection-end-column="21" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/controller/TTTController.h">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="323">
@@ -915,9 +736,11 @@
             <element signature="e#12755#13152#0" expanded="false" />
             <element signature="e#13154#14454#0" expanded="false" />
             <element signature="e#14456#15761#0" expanded="false" />
+            <element signature="e#15763#16027#0" expanded="false" />
             <element signature="e#16148#16379#0" expanded="false" />
             <element signature="e#16381#17109#0" expanded="false" />
             <element signature="e#17111#17883#0" expanded="false" />
+            <marker date="1478266468068" expanded="true" signature="16106:16146" ph="{...}" />
           </folding>
         </state>
       </provider>
@@ -997,9 +820,11 @@
             <element signature="e#12755#13152#0" expanded="false" />
             <element signature="e#13154#14454#0" expanded="false" />
             <element signature="e#14456#15761#0" expanded="false" />
+            <element signature="e#15763#16027#0" expanded="false" />
             <element signature="e#16148#16379#0" expanded="false" />
             <element signature="e#16381#17109#0" expanded="false" />
             <element signature="e#17111#17883#0" expanded="false" />
+            <marker date="1478266468068" expanded="true" signature="16106:16146" ph="{...}" />
           </folding>
         </state>
       </provider>
@@ -1023,6 +848,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding>
+            <element signature="e#43#61#0" expanded="true" />
+            <element signature="e#124#432#0" expanded="false" />
+            <element signature="e#1826#2281#0" expanded="false" />
+            <element signature="e#2931#3527#0" expanded="false" />
+            <element signature="e#3528#4167#0" expanded="false" />
+            <element signature="e#6728#7687#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1066,17 +899,18 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/model/Player.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="322">
-          <caret line="49" column="0" selection-start-line="49" selection-start-column="0" selection-end-line="49" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/model/PlayerDao.cpp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2445">
           <caret line="163" column="13" selection-start-line="163" selection-start-column="13" selection-end-line="163" selection-end-column="13" />
+          <folding>
+            <element signature="e#43#61#0" expanded="true" />
+            <element signature="e#124#432#0" expanded="false" />
+            <element signature="e#1826#2281#0" expanded="false" />
+            <element signature="e#2931#3527#0" expanded="false" />
+            <element signature="e#3528#4167#0" expanded="false" />
+            <element signature="e#6728#7687#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1084,21 +918,18 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="0">
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://C:/MinGW/lib/gcc/mingw32/4.9.3/include/c++/array" />
-    <entry file="file://$PROJECT_DIR$/Makefile">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="34">
-          <caret line="5" column="34" selection-start-line="5" selection-start-column="34" selection-end-line="5" selection-end-column="34" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/model/BigBoard.cpp">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="300">
           <caret line="20" column="0" selection-start-line="20" selection-start-column="0" selection-end-line="20" selection-end-column="0" />
+          <folding>
+            <element signature="e#44#63#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1106,6 +937,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="195">
           <caret line="13" column="38" selection-start-line="13" selection-start-column="38" selection-end-line="13" selection-end-column="38" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -1113,12 +945,15 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="285">
           <caret line="19" column="37" selection-start-line="19" selection-start-column="37" selection-end-line="19" selection-end-column="37" />
+          <folding>
+            <element signature="e#92#108#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/model/Board.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="901">
+        <state relative-caret-position="431">
           <caret line="53" column="0" selection-start-line="53" selection-start-column="0" selection-end-line="53" selection-end-column="0" />
           <folding>
             <element signature="e#40#59#0" expanded="true" />
@@ -1128,7 +963,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/model/Board.h">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="493">
+        <state relative-caret-position="405">
           <caret line="29" column="4" selection-start-line="29" selection-start-column="4" selection-end-line="29" selection-end-column="4" />
           <folding />
         </state>
@@ -1138,39 +973,14 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="180">
           <caret line="1348" column="0" selection-start-line="1348" selection-start-column="0" selection-end-line="1348" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/controller/TTTController.h">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="714">
-          <caret line="42" column="24" selection-start-line="42" selection-start-column="24" selection-end-line="42" selection-end-column="24" />
-          <folding>
-            <element signature="e#114#131#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/DW/css/style.css" />
-    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="75">
-          <caret line="5" column="218" selection-start-line="5" selection-start-column="207" selection-end-line="5" selection-end-column="218" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/DW/ultimate.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/controller/TTTController.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-525">
-          <caret line="271" column="10" selection-start-line="271" selection-start-column="10" selection-end-line="271" selection-end-column="10" />
+        <state relative-caret-position="1515">
+          <caret line="314" column="5" selection-start-line="314" selection-start-column="5" selection-end-line="314" selection-end-column="5" />
           <folding>
             <element signature="e#0#2#0" expanded="false" />
             <element signature="e#229#1026#0" expanded="false" />
@@ -1190,39 +1000,106 @@
             <element signature="e#12755#13152#0" expanded="false" />
             <element signature="e#13154#14454#0" expanded="false" />
             <element signature="e#14456#15761#0" expanded="false" />
+            <element signature="e#15763#16027#0" expanded="false" />
             <element signature="e#16148#16379#0" expanded="false" />
             <element signature="e#16381#17109#0" expanded="false" />
             <element signature="e#17111#17883#0" expanded="false" />
+            <marker date="1478266468068" expanded="true" signature="16106:16146" ph="{...}" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/controller/TTTController.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="630">
+          <caret line="42" column="24" selection-start-line="42" selection-start-column="24" selection-end-line="42" selection-end-column="24" />
+          <folding>
+            <element signature="e#114#131#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dw/js/script.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="435">
+          <caret line="62" column="101" selection-start-line="62" selection-start-column="101" selection-end-line="62" selection-end-column="101" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dw/css/style.css">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="150">
+          <caret line="10" column="24" selection-start-line="10" selection-start-column="24" selection-end-line="10" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/dw/ultimate.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="422">
+          <caret line="51" column="83" selection-start-line="51" selection-start-column="83" selection-end-line="51" selection-end-column="83" />
+          <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/main.cpp">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+        <state relative-caret-position="285">
+          <caret line="67" column="0" selection-start-line="67" selection-start-column="0" selection-end-line="67" selection-end-column="0" />
           <folding>
             <element signature="e#0#19#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/model/Player.h">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="735">
+          <caret line="49" column="0" selection-start-line="49" selection-start-column="0" selection-end-line="49" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/CMakeLists.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="75">
+          <caret line="5" column="218" selection-start-line="5" selection-start-column="207" selection-end-line="5" selection-end-column="218" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Makefile">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="403">
+          <caret line="34" column="0" selection-start-line="34" selection-start-column="0" selection-end-line="34" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/DW/ultimate.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-855">
+          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/view/js/script.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="102">
-          <caret line="120" column="0" selection-start-line="120" selection-start-column="0" selection-end-line="120" selection-end-column="0" />
+        <state relative-caret-position="2700">
+          <caret line="213" column="104" selection-start-line="213" selection-start-column="24" selection-end-line="213" selection-end-column="104" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/DW/js/script.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2550">
-          <caret line="233" column="5" selection-start-line="233" selection-start-column="5" selection-end-line="233" selection-end-column="5" />
+        <state relative-caret-position="671">
+          <caret line="259" column="31" selection-start-line="259" selection-start-column="31" selection-end-line="259" selection-end-column="31" />
           <folding>
-            <element signature="e#1163#2178#0" expanded="false" />
-            <element signature="e#2696#3937#0" expanded="false" />
-            <element signature="e#3971#4561#0" expanded="false" />
+            <element signature="e#1181#2196#0" expanded="false" />
+            <element signature="e#2241#2390#0" expanded="false" />
           </folding>
         </state>
       </provider>

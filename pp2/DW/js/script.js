@@ -2,12 +2,12 @@
 var cgiPath = "cgi-bin/ttt.cgi";
 
 //start-test //TODO delete
-$('.outer').each(function () {
-    if($(this).attr("pos") == 2){
-        $(this).children().hide()
-        $(this).text('x');
-    }
-});
+// $('.outer').each(function () {
+//     if($(this).attr("pos") == 2){
+//         $(this).children().hide()
+//         $(this).text('x');
+//     }
+// });
 var marker = 'o';
 //end-test
 
@@ -107,6 +107,8 @@ function togglePlayer(){
 //***********Play starts here ********************//
 lockAllBoard(false); //unlocks all board pieces
 
+getAttentionOf(1,false);
+
 
 
 
@@ -123,12 +125,12 @@ function getAttentionOf(board,set) {
 
                 var innerPos = $(this).attr("pos");
 
-                var onClickHandler =  function (){
+                var onClickHandler =  function (event){
                     //$(div).text(marker);
                     setMarkerInCell(outerPos,innerPos,currentPlayer.marker);
                     console.log("Board:" + innerPos + ", at: " + outerPos);
                     console.log(cursors);
-                    $(this).off('click',onClickHandler);
+                    //$(this).off('click',onClickHandler);
                     //update @recent variable
                     recent.outerPos = outerPos;
                     recent.innerPos = innerPos;
@@ -146,9 +148,16 @@ function getAttentionOf(board,set) {
                     //TODO unlock
 
                 };
-
-                if(set) $(this).on('click',onClickHandler);
-                else $(this).off('click',onClickHandler);
+                console.log("Is board "+board+" locked? "+set);
+                if(set){
+                    console.log("Unlocked"+board);
+                    $(this).on('click',onClickHandler);
+                }
+                else {
+                    console.log("Locked"+board);
+                    // $(this).off('click',onClickHandler);
+                    $(this).unbind('click');
+                }
             })
         }
     })
@@ -196,6 +205,7 @@ function inform(){
     //send it
     var xhttp = new XMLHttpRequest();
     xhttp.open("POST",cgiPath,true);
+    xhttp.send(JSON.stringify(request));
     console.log(JSON.stringify(request));
 
 
@@ -204,24 +214,27 @@ function inform(){
         if(this.readyState == 4 && this.status == 200) {
             //parse it
             var response = JSON.parse(this.responseText);
+            console.log(JSON.stringify(response));
 
             //update cursors
             cursors = response.cursors;
             winner = Number(response.winner);
+
+            //Mark board  //TODO may be cell too?
+            for(var i=0; i<9; i++){
+                //Set Marker of player[winner]
+                if(cursors[i].winner) setMarkerOnBoard(i,player[cursors[i].winner].marker);
+            }
 
             //Did anyone win?
             if(winner){
                 //Delcare
                 console.log("Game won by : " + winner); //TODO
             }else {
-                //Mark board  //TODO may be cell too?
-                for(var i=0; i<9; i++){
-                    //Set Marker of player[winner]
-                    if(cursors[i].winner) setMarkerOnBoard(i,player[cursors[i].winner].marker);
-                }
+
                 //whats next board?
                 var toBeUnlocked = nextBoard();
-
+                console.log("toBeUnlocked : " + toBeUnlocked);
                 //unlock board accordingly
                 if(toBeUnlocked<0){
                     lockAllBoard(false);
@@ -244,7 +257,7 @@ function nextBoard() {
    // var outerPos = Number(recent.outerPos);
     var innerPos = Number(recent.innerPos);
 
-    if(cursors[innerPos].winner == 3){
+    if(cursors[innerPos].winner){
         return -1;
     }else{
         return innerPos;
@@ -255,7 +268,8 @@ function nextBoard() {
 
 function lockAllBoard(lock) {
     lock = Boolean(lock);
-
+    console.log("lock:"+ lock);
+    console.log("!lock:"+ !lock);
     for (var i = 0; i < 9; i++) {
         getAttentionOf(i,!lock);
     }
