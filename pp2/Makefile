@@ -39,4 +39,5 @@ sampleTest.o:	sampleTest.cpp
 clean:
 	rm -rf *.o
 	rm -rf *~
+	rm -rf model/*.gch controller/*.gch
 	rm -rf run ttt.cgi test.cgi
