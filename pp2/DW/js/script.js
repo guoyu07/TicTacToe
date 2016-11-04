@@ -11,11 +11,19 @@ var player = {
     1:{ "name": "RV",
         "marker" :'o'
 
-    }, 2:{
+    }, 2:{"name": "SW",
+        "marker" :'w'
 
     }
 
 };
+
+var currentPlayer = {
+    "name" : "",
+    "marker" : ""
+};
+
+currentPlayer = player[1];
 
 //Cursors
 var cursors = {
@@ -29,9 +37,6 @@ var cursors = {
     7: {"cursor" : "000000000"},
     8: {"cursor" : "000000000"}
 };
-
-
-console.log(cursors[0].cursor);
 
 
 // outerPos = 0...9;
@@ -68,9 +73,15 @@ $('.outer').each(function () {
 })
 
 }
+
+function togglePlayer(){
+    if(currentPlayer == player[1]) currentPlayer = player[2];
+    else currentPlayer = player[1];
+}
 var marker = 'o';
 
 
+//***********Play goes here ********************//
 $('.outer').each(function () {
     var outerPos = $(this).attr("pos");
 
@@ -80,14 +91,22 @@ $('.outer').each(function () {
 
         var onClickHandler =  function (){
             //$(div).text(marker);
-            setMarker(outerPos,innerPos,marker);
+            setMarker(outerPos,innerPos,currentPlayer.marker);
             console.log("Board:" + innerPos + ", at: " + outerPos);
             console.log(cursors);
             $(div).off('click',onClickHandler);
+            //TODO lock big board
 
-            //prepare request and send it
+            //TODO ask cgi to do math
+            inform();
 
-            //send it
+            //TODO toggle player
+            togglePlayer();
+
+            //TODO do anything if cgi asked to do
+
+            //TODO unlock
+
         };
 
 
@@ -117,10 +136,25 @@ function getCursor(boardNumber) {
 function inform(){
 
     //Get game cursors
-    var cursors = {};
-
+    var request = {
+        "identifier" : "P",
+        "gameType" : "U",
+        "player1" :{
+            "name": "",
+            "marker": ""
+        },
+        "player2" :{
+            "name": "",
+            "marker": ""
+        },
+        "cursors": {}
+    };
+    request.player1 = player[1];
+    request.player2 = player[2];
+    request.cursors = cursors;
 
     //send it
+    console.log(JSON.stringify(request));
 
     //parse it
 }

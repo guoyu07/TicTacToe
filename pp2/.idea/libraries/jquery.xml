@@ -8,8 +8,8 @@
       </sourceFilesUrls>
     </properties>
     <CLASSES>
-      <root url="file://$PROJECT_DIR$/dw/js/bootstrap.js" />
-      <root url="file://$PROJECT_DIR$/dw/js/jquery-1.11.3.min.js" />
+      <root url="file://$PROJECT_DIR$/DW/js/bootstrap.js" />
+      <root url="file://$PROJECT_DIR$/DW/js/jquery-1.11.3.min.js" />
     </CLASSES>
     <SOURCES />
   </library>
