@@ -325,8 +325,7 @@ int TTTController::determineWinner(Board& board) {
 }
 
 int TTTController::determineWinner(BigBoard &bigBoard) {
-    std::array<Board,9> lBoard;
-    lBoard = bigBoard.getLBoard();
+    std::array<Board,9>& lBoard = bigBoard.getLBoard();
 
     for(Board& b : lBoard){
         determineWinner(b);

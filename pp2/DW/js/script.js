@@ -1,10 +1,15 @@
 // JavaScript Document
+var cgiPath = "cgi-bin/ttt.cgi";
 
-$('.outer > .row').children().each(function () {
+//start-test //TODO delete
+$('.outer').each(function () {
     if($(this).attr("pos") == 2){
-        $(this).text("I'm 2");
+        $(this).children().hide()
+        $(this).text('x');
     }
 });
+var marker = 'o';
+//end-test
 
 //Players
 var player = {
@@ -14,6 +19,8 @@ var player = {
     }, 2:{"name": "SW",
         "marker" :'w'
 
+    },3:{
+        "marker" : "X" //Game tie = 3
     }
 
 };
@@ -23,26 +30,32 @@ var currentPlayer = {
     "marker" : ""
 };
 
+var winner = 0;
+var recent ={
+    "outerPos" : -1,
+    "innerPos" : -1
+};
+
 currentPlayer = player[1];
 
 //Cursors
 var cursors = {
-    0: {"cursor" : "000000000"},
-    1: {"cursor" : "000000000"},
-    2: {"cursor" : "000000000"},
-    3: {"cursor" : "000000000"},
-    4: {"cursor" : "000000000"},
-    5: {"cursor" : "000000000"},
-    6: {"cursor" : "000000000"},
-    7: {"cursor" : "000000000"},
-    8: {"cursor" : "000000000"}
+    0: {"cursor" : "000000000", "winner" : 0},
+    1: {"cursor" : "000000000", "winner" : 0},
+    2: {"cursor" : "000000000", "winner" : 0},
+    3: {"cursor" : "000000000", "winner" : 0},
+    4: {"cursor" : "000000000", "winner" : 0},
+    5: {"cursor" : "000000000", "winner" : 0},
+    6: {"cursor" : "000000000", "winner" : 0},
+    7: {"cursor" : "000000000", "winner" : 0},
+    8: {"cursor" : "000000000", "winner" : 0}
 };
 
 
 // outerPos = 0...9;
 // innerPos = 0...9
 // marker = Player marker
-function setMarker(outerPos, innerPos, marker) {
+function setMarkerInCell(outerPos, innerPos, marker) {
     outerPos = Number(outerPos);
     innerPos = Number(innerPos);
 $('.outer').each(function () {
@@ -74,47 +87,72 @@ $('.outer').each(function () {
 
 }
 
+function setMarkerOnBoard(outerPos,marker) {
+$('.outer').each(function () {
+    if($(this).attr("pos") == outerPos){
+        $(this).children().hide()
+        $(this).text(marker);
+    }
+})
+
+}
+
 function togglePlayer(){
     if(currentPlayer == player[1]) currentPlayer = player[2];
     else currentPlayer = player[1];
 }
-var marker = 'o';
 
 
-//***********Play goes here ********************//
-$('.outer').each(function () {
-    var outerPos = $(this).attr("pos");
 
-    $(this).children().children('.inner').each(function () {
-        var div = this;
-        var innerPos = $(div).attr("pos");
-
-        var onClickHandler =  function (){
-            //$(div).text(marker);
-            setMarker(outerPos,innerPos,currentPlayer.marker);
-            console.log("Board:" + innerPos + ", at: " + outerPos);
-            console.log(cursors);
-            $(div).off('click',onClickHandler);
-            //TODO lock big board
-
-            //TODO ask cgi to do math
-            inform();
-
-            //TODO toggle player
-            togglePlayer();
-
-            //TODO do anything if cgi asked to do
-
-            //TODO unlock
-
-        };
+//***********Play starts here ********************//
+lockAllBoard(false); //unlocks all board pieces
 
 
-        $(this).on('click',onClickHandler);
 
 
-    });
-});
+
+
+//***********Play ends here ********************//
+
+function getAttentionOf(board,set) {
+    var outerPos = Number(board);
+    set = Boolean(set);
+    $('.outer').each(function () {
+        if($(this).attr("pos") == board){
+            $(this).children().children('.inner').each(function () {
+
+                var innerPos = $(this).attr("pos");
+
+                var onClickHandler =  function (){
+                    //$(div).text(marker);
+                    setMarkerInCell(outerPos,innerPos,currentPlayer.marker);
+                    console.log("Board:" + innerPos + ", at: " + outerPos);
+                    console.log(cursors);
+                    $(this).off('click',onClickHandler);
+                    //update @recent variable
+                    recent.outerPos = outerPos;
+                    recent.innerPos = innerPos;
+
+                    //inform() will take care of locking and unlocking
+                    //TODO ask cgi to do math
+                    inform();
+
+                    //TODO toggle player
+                    togglePlayer();
+
+                    //TODO do anything if cgi asked to do
+
+
+                    //TODO unlock
+
+                };
+
+                if(set) $(this).on('click',onClickHandler);
+                else $(this).off('click',onClickHandler);
+            })
+        }
+    })
+}
 
 function getCursor(boardNumber) {
     boardNumber = 0;
@@ -134,6 +172,8 @@ function getCursor(boardNumber) {
 }
 
 function inform(){
+    //lock all board
+    lockAllBoard(true);
 
     //Get game cursors
     var request = {
@@ -154,7 +194,69 @@ function inform(){
     request.cursors = cursors;
 
     //send it
+    var xhttp = new XMLHttpRequest();
+    xhttp.open("POST",cgiPath,true);
     console.log(JSON.stringify(request));
 
-    //parse it
+
+    //on receiving response from CGI
+    xhttp.onreadystatechange = function () {
+        if(this.readyState == 4 && this.status == 200) {
+            //parse it
+            var response = JSON.parse(this.responseText);
+
+            //update cursors
+            cursors = response.cursors;
+            winner = Number(response.winner);
+
+            //Did anyone win?
+            if(winner){
+                //Delcare
+                console.log("Game won by : " + winner); //TODO
+            }else {
+                //Mark board  //TODO may be cell too?
+                for(var i=0; i<9; i++){
+                    //Set Marker of player[winner]
+                    if(cursors[i].winner) setMarkerOnBoard(i,player[cursors[i].winner].marker);
+                }
+                //whats next board?
+                var toBeUnlocked = nextBoard();
+
+                //unlock board accordingly
+                if(toBeUnlocked<0){
+                    lockAllBoard(false);
+                }else{
+                    getAttentionOf(toBeUnlocked,true);
+                }
+            }
+        }
+
+    };
+
+}
+
+
+function nextBoard() {
+    //current input
+    //and
+    //next board status i.e. if no room is available
+
+   // var outerPos = Number(recent.outerPos);
+    var innerPos = Number(recent.innerPos);
+
+    if(cursors[innerPos].winner == 3){
+        return -1;
+    }else{
+        return innerPos;
+    }
+
+}
+
+
+function lockAllBoard(lock) {
+    lock = Boolean(lock);
+
+    for (var i = 0; i < 9; i++) {
+        getAttentionOf(i,!lock);
+    }
 }
