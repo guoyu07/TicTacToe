@@ -317,7 +317,7 @@ int TTTController::determineWinner(Board& board) {
 
 
     //Game is tie/no room available
-    return 3;
+    return board.setWinner(3);
 
     //None of the above cases worked?
 
