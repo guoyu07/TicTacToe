@@ -136,20 +136,13 @@ function getAttentionOf(board,set) {
                     recent.innerPos = innerPos;
 
                     //inform() will take care of locking and unlocking
-                    //TODO ask cgi to do math
                     inform();
 
-                    //TODO toggle player
                     togglePlayer();
-
-                    //TODO do anything if cgi asked to do
-
-
-                    //TODO unlock
-
                 };
                 console.log("Is board "+board+" locked? "+set);
-                if(set){
+                //TODO donot unlock if cursor at @innerPos is '0'
+                if(set && cursors[outerPos].cursor[innerPos] == 0){
                     console.log("Unlocked"+board);
                     $(this).on('click',onClickHandler);
                 }
@@ -184,23 +177,23 @@ function inform(){
     //lock all board
     lockAllBoard(true);
 
-    //Get game cursors
-    var request = {
-        "identifier" : "P",
-        "gameType" : "U",
-        "player1" :{
-            "name": "",
-            "marker": ""
-        },
-        "player2" :{
-            "name": "",
-            "marker": ""
-        },
-        "cursors": {}
-    };
-    request.player1 = player[1];
-    request.player2 = player[2];
-    request.cursors = cursors;
+    //Get game cursors**********************************************//*//
+    var request = {                                                 //*//
+        "identifier" : "P",                                         //*//
+        "gameType" : "U",                                           //*//
+        "player1" :{                                                //*//
+            "name": "",                                             //*//
+            "marker": ""                                            //*//
+        },                                                          //*//
+        "player2" :{                                                //*//
+            "name": "",                                             //*//
+            "marker": ""                                            //*//
+        },                                                          //*//
+        "cursors": {}                                               //*//
+    };                                                              //*//
+    request.player1 = player[1];                                    //*//
+    request.player2 = player[2];                                    //*//
+    request.cursors = cursors;                                      //*//
 
     //send it
     var xhttp = new XMLHttpRequest();
