@@ -107,7 +107,7 @@ function togglePlayer(){
 //***********Play starts here ********************//
 lockAllBoard(false); //unlocks all board pieces
 
-getAttentionOf(1,false);
+//getAttentionOf(1,false);
 
 
 
