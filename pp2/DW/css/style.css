@@ -11,18 +11,82 @@ td {
 	/*margin-top: 1px;*/
 /*}*/
 .outer {
-	border-width: 1px;
-	border-style: solid;
+	border-width: 2px;
+	border-color:#7B7777;
+	display: table;
+
 }
+.boxHighlight{
+	border-color:#0034FF;
+	border-style: solid solid solid solid;
+	}
 .inner {
-	border-width: 1px;
-	border-style: solid;
-	width: 30px;
-	height: 30px;
+	border-color:#7A7979;
+
+	text-align: center;
+	border-width: 0.5px;
+	border-radius: 5px;
+	display: table-cell;
+	vertical-align: middle;
+
 }
-.row {
-	width: 106%;
+.outerRow {
+	display: table-row-group;
+	
+}
+.mainTable {
+	height: 100%;
+	vertical-align: middle;
+	min-height: 100%;
+	padding-top: 20px;
+	padding-bottom: 20px;
+}
+body html {
+	height: 100%;
+}
+.innerRow {
+	width: auto;
+}
+#playerSelect1, #playerSelect2{
+display:block;
+}
+
+@media (min-width:400px) and (max-width:767px){
+	.outer{
+				width:107px;
+	}
+	.inner{
+			width: 35px;
+	height: 35px;
+		line-height: 2em;
+}
+
+}
+
+@media (min-width:768px){
+	.outer{
+		width:157px;
+	}
+	.inner{
+			width: 50px;
+	height: 50px;
+		line-height: 4em;
+}
 
 
+}
 
+@media (min-width: 300px) and (max-width: 371px){
+		.outer{
+		width:98px;
+	}
+	.inner{
+			width: 30px;
+	height: 30px;
+		line-height: 2em;
+}
+.mainTable{
+	padding: 15px 2px 15px 2px;
+
+}
 }
