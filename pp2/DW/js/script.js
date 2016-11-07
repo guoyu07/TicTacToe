@@ -25,6 +25,8 @@ var player = {
 
 };
 
+var allPlayers = {};
+
 var currentPlayer = {
     "name" : "",
     "marker" : ""
@@ -50,6 +52,49 @@ var cursors = {
     7: {"cursor" : "000000000", "winner" : 0},
     8: {"cursor" : "000000000", "winner" : 0}
 };
+
+drawBorders('.outer');
+drawBorders('.inner');
+
+
+function drawBorders(box) {
+    $(box).each(function() {
+        var pos = $(this).attr('pos');
+        console.log(pos);
+        pos = Number(pos);
+        switch (pos){
+            case 0: $(this).css('border-style','none solid solid none'); break;
+            case 1: $(this).css('border-style','none solid solid solid'); break;
+            case 2: $(this).css('border-style','none none solid solid'); break;
+            case 3: $(this).css('border-style','solid solid solid none'); break;
+            case 4: $(this).css('border-style','solid solid solid solid'); break;
+            case 5: $(this).css('border-style','solid none solid solid'); break;
+            case 6: $(this).css('border-style','solid solid none none'); break;
+            case 7: $(this).css('border-style','solid solid none solid'); break;
+            case 8: $(this).css('border-style','solid none none solid'); break;
+        }
+    });
+
+}
+
+function highlightBox(pos,set){
+    pos = Number(pos);
+
+    //Highlight or un-highlight all if pos is '9'
+    if(pos == 9) {
+        for(var i=1; i<9; i++){
+            highlightBox(i,set);
+        }
+        return;
+    }
+    $('.outer').each(function() {
+        if($(this).attr('pos') == pos){
+            if(set)  $(this).addClass('boxHighlight');
+              else  $(this).removeClass('boxHighlight');
+        }
+    });
+
+}
 
 
 // outerPos = 0...9;
@@ -119,6 +164,7 @@ lockAllBoard(false); //unlocks all board pieces
 function getAttentionOf(board,set) {
     var outerPos = Number(board);
     set = Boolean(set);
+    highlightBox(board,set);
     $('.outer').each(function () {
         if($(this).attr("pos") == board){
             $(this).children().children('.inner').each(function () {
@@ -266,4 +312,71 @@ function lockAllBoard(lock) {
     for (var i = 0; i < 9; i++) {
         getAttentionOf(i,!lock);
     }
+}
+
+
+
+
+//***********Players***********************//
+
+var sel1 = document.getElementById('select1');
+var sel2 = document.getElementById('select2');
+
+var newPlayer = document.get
+
+sel1.addEventListener('change',function () {
+    updatePlayerBySelect(this, 1, 'p1_n', 'p1_m','playerSel1');
+
+});
+sel2.addEventListener('change',function () {
+    updatePlayerBySelect(this, 2, 'p2_n', 'p2_m','playerSel2');
+});
+
+getAllPlayers();
+
+function getAllPlayers(){
+    var outJson = {};
+    outJson.identifier="G";
+
+    var xhttp2 = new XMLHttpRequest();
+    xhttp2.open("POST",cgiPath,true);
+    xhttp2.send(JSON.stringify(outJson));
+
+
+    xhttp2.onreadystatechange = function () {
+
+        if(this.readyState == 4 && this.status == 200) {
+            var inJson = JSON.parse(this.responseText);
+
+            // var dummyResponse = "{\"players\":[{\"name\":\"RV\",\"marker\":\"o\",\"stats\":{\"ultimate\":{\"win\":0,\"loss\":0,\"tie\":0},\"regular\":{\"win\":0,\"loss\":0,\"tie\":0}}},{\"name\":\"SW\",\"marker\":\"w\",\"stats\":{\"ultimate\":{\"win\":0,\"loss\":0,\"tie\":0},\"regular\":{\"win\":0,\"loss\":0,\"tie\":0}}}]}";
+            // var inJson = JSON.parse(dummyResponse);
+            console.log(inJson);
+            allPlayers = inJson.players;
+
+            allPlayers.forEach(function (player) {
+                console.log(player);
+                var listItem = document.createElement("option");var listItem2 = document.createElement("option");
+                var item = document.createTextNode(player.name + " (" + player.marker + ")");var item2 = document.createTextNode(player.name + " (" + player.marker + ")");
+                listItem.appendChild(item);listItem2.appendChild(item2);
+                sel1.appendChild(listItem);
+                sel2.appendChild(listItem2);
+            })
+
+
+        }
+    };
+
+
+}
+
+function updatePlayerBoard() {
+
+}
+
+function getUpddatedPlayers() {
+
+}
+
+function updateSelects() {
+
 }
