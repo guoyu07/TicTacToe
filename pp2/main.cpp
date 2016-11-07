@@ -35,8 +35,10 @@ int main() {
 
     //switch with purpose of request -> "identifier" has purpose
     switch (json["identifier"].GetString()[0]) {
-        case 'G':
-            std::cout << tttController.getAllSavedPlayers(); break;
+        case 'G': {
+            std::cout << tttController.getAllSavedPlayers();
+            break;
+        }
         //'G' -> @return getAllSavedPlayers
         case 'P': {
             //'P' -> has
@@ -98,31 +100,7 @@ int main() {
 
             break;
         }
-        case 'X': {
-            std::string player_name, player_marker;
-            tttController.partParseJson(inJsonRequest, player_name);
-            tttController.partParseJson(inJsonRequest, player_marker);
-            if (player_name == "" || player_marker == "") {}
-            else tttController.createPlayer(player_name, player_marker, 1);
-        }
-        case 'Y':{
-            std::string player_name, player_marker;
-            tttController.partParseJson(inJsonRequest, player_name);
-            tttController.partParseJson(inJsonRequest, player_marker);
-            if(player_name =="" || player_marker =="") {}
-                else tttController.createPlayer(player_name, player_marker, 2);
 
-
-            tttController.startNewGame();
-            std::string players;
-
-            players += "{\"players\":[";
-            players += "{\"name\":\"" + tttController.player1.getName() + "\",\"marker\":\"" + tttController.player1.getSymbol() + "\",\"id\":" +  std::to_string(tttController.player1.getId()) + "},";
-            players += "{\"name\":\"" + tttController.player2.getName() + "\",\"marker\":\"" + tttController.player2.getSymbol() + "\",\"id\":" + std::to_string(tttController.player2.getId()) + "}";
-            players += "]}";
-            std::cout << players;
-            break;
-        }
         default:
         std::cout << "{\"error\":147}";
     }
