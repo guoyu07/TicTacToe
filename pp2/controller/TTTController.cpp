@@ -7,6 +7,9 @@
 #include <limits>
 #include "TTTController.h"
 #include "../model/PlayerDao.h"
+#include "../lib/rapidjson/document.h"
+#include "../lib/rapidjson/stringbuffer.h"
+#include "../lib/rapidjson/writer.h"
 
 TTTController::TTTController() {}
 TTTController::~TTTController() {}
