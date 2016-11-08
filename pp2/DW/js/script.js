@@ -1,6 +1,6 @@
 // JavaScript Document
 var cgiPath = "cgi-bin/ttt.cgi";
-
+var gameType = "ultimate";
 //start-test //TODO delete
 // $('.outer').each(function () {
 //     if($(this).attr("pos") == 2){
@@ -8,22 +8,52 @@ var cgiPath = "cgi-bin/ttt.cgi";
 //         $(this).text('x');
 //     }
 // });
-var marker = 'o';
 //end-test
 
 //Players
 var player = {
-    1:{ "name": "RV",
-        "marker" :'o'
+    1:{ "name": "RV2",
+        "marker" :'o',
+        "stats" : {
+            "regular" :{
+                "win" :0,
+                "lose" : 0,
+                "tie" : 0
+            },
+            "ultimate" :{
+                "win" :0,
+                "lose" : 0,
+                "tie" : 0
+            }
+        }
 
     }, 2:{"name": "SW",
-        "marker" :'w'
+        "marker" :'w',
+        "stats" : {
+            "regular" :{
+                "win" :0,
+                "lose" : 0,
+                "tie" : 0
+            },
+            "ultimate" :{
+                "win" :0,
+                "lose" : 0,
+                "tie" : 0
+            }
+        }
 
     },3:{
         "marker" : "X" //Game tie = 3
     }
 
 };
+
+var arePlayersSet = {
+    1:false,
+    2:false
+};
+
+var isGameRunning = false;
 
 var allPlayers = {};
 
@@ -143,15 +173,28 @@ $('.outer').each(function () {
 }
 
 function togglePlayer(){
-    if(currentPlayer == player[1]) currentPlayer = player[2];
-    else currentPlayer = player[1];
+    if(currentPlayer == player[1]){
+        currentPlayer = player[2];
+    }
+    else {
+        currentPlayer = player[1];
+    }
+    console.log(currentPlayer);
 }
 
 
 
 //***********Play starts here ********************//
-lockAllBoard(false); //unlocks all board pieces
 
+function startGame() {
+    //clear screen
+    $('#newPlayer').addClass('hide');
+
+    //
+    isGameRunning = true;
+    currentPlayer = player[1];
+    lockAllBoard(false); //unlocks all board pieces
+}
 //getAttentionOf(1,false);
 
 
@@ -322,14 +365,12 @@ function lockAllBoard(lock) {
 var sel1 = document.getElementById('select1');
 var sel2 = document.getElementById('select2');
 
-var newPlayer = document.get
-
 sel1.addEventListener('change',function () {
-    updatePlayerBySelect(this, 1, 'p1_n', 'p1_m','playerSel1');
+    updatePlayerBySelect('#select1',1,'#playerBoard1');
 
 });
 sel2.addEventListener('change',function () {
-    updatePlayerBySelect(this, 2, 'p2_n', 'p2_m','playerSel2');
+    updatePlayerBySelect('#select2',2,'#playerBoard2');
 });
 
 getAllPlayers();
@@ -352,31 +393,110 @@ function getAllPlayers(){
             // var inJson = JSON.parse(dummyResponse);
             console.log(inJson);
             allPlayers = inJson.players;
-
-            allPlayers.forEach(function (player) {
-                console.log(player);
-                var listItem = document.createElement("option");var listItem2 = document.createElement("option");
-                var item = document.createTextNode(player.name + " (" + player.marker + ")");var item2 = document.createTextNode(player.name + " (" + player.marker + ")");
-                listItem.appendChild(item);listItem2.appendChild(item2);
-                sel1.appendChild(listItem);
-                sel2.appendChild(listItem2);
-            })
-
-
+            UpdatePlayersFromCgi();
         }
     };
 
 
 }
 
-function updatePlayerBoard() {
+$('#newPlayer').click(function () {
+    $('#newPlayer').addClass('hide');
+    $('#createPlayerPanel').addClass('show')
+});
+
+$('#createDone').click(function () {
+    var name = $('#pName').val();
+    var marker = $('#pMarker').val();
+    if(name != "" && marker != ""){
+        createPlayer(name, marker);
+    }else{
+        alert('Name or marker can\'t be empty fields');
+    }
+});
+
+function createPlayer(name, marker) {
+    var request = {
+        "identifier" : "",
+        "name" : "",
+        "marker" : ""
+    };
+    request.identifier="C";
+    request.name = name;
+    request.marker = marker;
+
+    var xhttp = new XMLHttpRequest();
+    xhttp.open("POST",cgiPath,true);
+    xhttp.send(JSON.stringify(request));
+    console.log(JSON.stringify(request));
+
+    xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+            var inJson = JSON.parse(this.responseText);
+
+            console.log(inJson);
+            allPlayers = inJson.players;
+            UpdatePlayersFromCgi();
+            $('#createPlayerPanel').removeClass('show');
+            $('#createPlayerPanel').addClass('hide');
+            $('#newPlayer').addClass('show');
+        }
+    }
+}
+
+function UpdatePlayersFromCgi() {
+
+    $('#select1').find('option')
+        .remove()
+        .end()
+        .append('<option>--Select--</option>');
+    $('#select2').find('option')
+        .remove()
+        .end()
+        .append('<option>--Select--</option>');
+
+    allPlayers.forEach(function (player) {
+        console.log(player);
+        var listItem = document.createElement("option");var listItem2 = document.createElement("option");
+        var item = document.createTextNode(player.name + " (" + player.marker + ")");var item2 = document.createTextNode(player.name + " (" + player.marker + ")");
+        listItem.appendChild(item);listItem2.appendChild(item2);
+        sel1.appendChild(listItem);
+        sel2.appendChild(listItem2);
+    })
 
 }
 
-function getUpddatedPlayers() {
+function updatePlayerBySelect(selector, whichSelector, boardId){
+    selectorObj = document.getElementById(selector.substr(1));
+    if(selectorObj.selectedIndex == 0) return;
+    if(whichSelector <1 || whichSelector >2) return;
+
+    //Update local variables
+    player[whichSelector] = allPlayers[selectorObj.selectedIndex - 1];
+
+
+    //hide select
+    $(selector).parent().removeClass('show');
+    $(selector).parent().addClass('hide');
+
+    //update & show playerBoard
+    updatePlayerBoard(boardId, whichSelector);
+    $(boardId).removeClass('hide');
+    $(boardId).addClass('show');
+
+    //change player status to set
+    arePlayersSet[whichSelector] = true;
+
+    if( arePlayersSet[1] && arePlayersSet[2]) {
+        startGame();
+    }
 
 }
 
-function updateSelects() {
+function updatePlayerBoard(boardId, whichBoard) {
+    $(boardId).find('name').text(player[whichBoard].name);
+    $(boardId).find('win').text(player[whichBoard].stats[gameType].win);
+    $(boardId).find('lose').text(player[whichBoard].stats[gameType].lose);
+    $(boardId).find('tie').text(player[whichBoard].stats[gameType].tie);
 
 }

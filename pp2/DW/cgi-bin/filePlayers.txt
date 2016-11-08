@@ -1,0 +1,4 @@
+{"name":"as","symbol":"a","stats":{"regular":{"win":0,"loss":0,"tie":0},"ultimate":{"win":0,"loss":1,"tie":0}}}
+{"name":"bs","symbol":"b","stats":{"regular":{"win":0,"loss":0,"tie":0},"ultimate":{"win":2,"loss":0,"tie":0}}}
+{"name":"asdf","symbol":"d","stats":{"regular":{"win":0,"loss":0,"tie":0},"ultimate":{"win":0,"loss":0,"tie":0}}}
+{"name":"hello","symbol":"h","stats":{"regular":{"win":0,"loss":0,"tie":0},"ultimate":{"win":0,"loss":1,"tie":0}}}

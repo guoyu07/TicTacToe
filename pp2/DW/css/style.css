@@ -51,6 +51,10 @@ body html {
 display:block;
 }
 
+win, lose, tie {
+	color: #060203;
+}
+
 @media (min-width:400px) and (max-width:767px){
 	.outer{
 				width:107px;

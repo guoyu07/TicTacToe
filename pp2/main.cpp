@@ -35,11 +35,17 @@ int main() {
 
     //switch with purpose of request -> "identifier" has purpose
     switch (json["identifier"].GetString()[0]) {
+        case 'C': {
+            if (json["name"].IsString() && json["marker"].IsString())
+                tttController.createPlayer(json["name"].GetString(), json["marker"].GetString(), 1);
+        }
+        // 'C' Creates new player and returns all players; Hence no break statement
         case 'G': {
             std::cout << tttController.getAllSavedPlayers();
             break;
         }
-        //'G' -> @return getAllSavedPlayers
+            //'G' -> @return getAllSavedPlayers
+
         case 'P': {
             //'P' -> has
             /*
