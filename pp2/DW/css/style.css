@@ -51,7 +51,7 @@ body html {
 display:block;
 }
 
-win, lose, tie {
+win, loss, tie {
 	color: #060203;
 }
 

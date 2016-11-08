@@ -17,12 +17,12 @@ var player = {
         "stats" : {
             "regular" :{
                 "win" :0,
-                "lose" : 0,
+                "loss" : 0,
                 "tie" : 0
             },
             "ultimate" :{
                 "win" :0,
-                "lose" : 0,
+                "loss" : 0,
                 "tie" : 0
             }
         }
@@ -32,12 +32,12 @@ var player = {
         "stats" : {
             "regular" :{
                 "win" :0,
-                "lose" : 0,
+                "loss" : 0,
                 "tie" : 0
             },
             "ultimate" :{
                 "win" :0,
-                "lose" : 0,
+                "loss" : 0,
                 "tie" : 0
             }
         }
@@ -496,7 +496,7 @@ function updatePlayerBySelect(selector, whichSelector, boardId){
 function updatePlayerBoard(boardId, whichBoard) {
     $(boardId).find('name').text(player[whichBoard].name);
     $(boardId).find('win').text(player[whichBoard].stats[gameType].win);
-    $(boardId).find('lose').text(player[whichBoard].stats[gameType].lose);
+    $(boardId).find('loss').text(player[whichBoard].stats[gameType].loss);
     $(boardId).find('tie').text(player[whichBoard].stats[gameType].tie);
 
 }
