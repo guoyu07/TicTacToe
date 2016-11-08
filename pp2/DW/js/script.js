@@ -57,10 +57,7 @@ var isGameRunning = false;
 
 var allPlayers = {};
 
-var currentPlayer = {
-    "name" : "",
-    "marker" : ""
-};
+var currentPlayer = 1;
 
 var winner = 0;
 var recent ={
@@ -68,13 +65,11 @@ var recent ={
     "innerPos" : -1
 };
 
-currentPlayer = player[1];
-
 //Cursors
 var cursors = {
-    0: {"cursor" : "000000000", "winner" : 0},
-    1: {"cursor" : "000000000", "winner" : 0},
-    2: {"cursor" : "000000000", "winner" : 0},
+    0: {"cursor" : "111000000", "winner" : 0},
+    1: {"cursor" : "111000000", "winner" : 0},
+    2: {"cursor" : "110000000", "winner" : 0},
     3: {"cursor" : "000000000", "winner" : 0},
     4: {"cursor" : "000000000", "winner" : 0},
     5: {"cursor" : "000000000", "winner" : 0},
@@ -109,10 +104,10 @@ function drawBorders(box) {
 
 function highlightBox(pos,set){
     pos = Number(pos);
-
+    if(cursors[pos].winner) return;
     //Highlight or un-highlight all if pos is '9'
     if(pos == 9) {
-        for(var i=1; i<9; i++){
+        for(var i=0; i<9; i++){
             highlightBox(i,set);
         }
         return;
@@ -145,7 +140,7 @@ $('.outer').each(function () {
                 //Update local @cursors
                 var temp_char = '0';
 
-                if(marker == player[1].marker){
+                if(currentPlayer == 1){
                     temp_char = '1';
                 }else {
                     temp_char = '2';
@@ -165,19 +160,24 @@ $('.outer').each(function () {
 function setMarkerOnBoard(outerPos,marker) {
 $('.outer').each(function () {
     if($(this).attr("pos") == outerPos){
-        $(this).children().hide()
+        $(this).children().hide();
         $(this).text(marker);
+        $(this).addClass('innerWinner');
     }
 })
 
 }
 
 function togglePlayer(){
-    if(currentPlayer == player[1]){
-        currentPlayer = player[2];
+    if(currentPlayer == 1){
+        currentPlayer = 2;
+        $('#playerBoard1').removeClass('focus');
+        $('#playerBoard2').addClass('focus');
     }
     else {
-        currentPlayer = player[1];
+        currentPlayer = 1;
+        $('#playerBoard2').removeClass('focus');
+        $('#playerBoard1').addClass('focus');
     }
     console.log(currentPlayer);
 }
@@ -188,11 +188,11 @@ function togglePlayer(){
 
 function startGame() {
     //clear screen
-    $('#newPlayer').addClass('hide');
+    $('#createPlayer').addClass('hide');
 
     //
     isGameRunning = true;
-    currentPlayer = player[1];
+    currentPlayer = 1;
     lockAllBoard(false); //unlocks all board pieces
 }
 //getAttentionOf(1,false);
@@ -216,7 +216,7 @@ function getAttentionOf(board,set) {
 
                 var onClickHandler =  function (event){
                     //$(div).text(marker);
-                    setMarkerInCell(outerPos,innerPos,currentPlayer.marker);
+                    setMarkerInCell(outerPos,innerPos,player[currentPlayer].marker);
                     console.log("Board:" + innerPos + ", at: " + outerPos);
                     console.log(cursors);
                     //$(this).off('click',onClickHandler);
@@ -310,8 +310,11 @@ function inform(){
 
             //Did anyone win?
             if(winner){
-                //Delcare
+                //Declare
                 console.log("Game won by : " + winner); //TODO
+                updateCurrentPlayers();
+                updatePlayerBoard('#playerBoard1',1);
+                updatePlayerBoard('#playerBoard2',2);
             }else {
 
                 //whats next board?
@@ -389,11 +392,9 @@ function getAllPlayers(){
         if(this.readyState == 4 && this.status == 200) {
             var inJson = JSON.parse(this.responseText);
 
-            // var dummyResponse = "{\"players\":[{\"name\":\"RV\",\"marker\":\"o\",\"stats\":{\"ultimate\":{\"win\":0,\"loss\":0,\"tie\":0},\"regular\":{\"win\":0,\"loss\":0,\"tie\":0}}},{\"name\":\"SW\",\"marker\":\"w\",\"stats\":{\"ultimate\":{\"win\":0,\"loss\":0,\"tie\":0},\"regular\":{\"win\":0,\"loss\":0,\"tie\":0}}}]}";
-            // var inJson = JSON.parse(dummyResponse);
             console.log(inJson);
             allPlayers = inJson.players;
-            UpdatePlayersFromCgi();
+            UpdatePlayersSelectors();
         }
     };
 
@@ -436,7 +437,7 @@ function createPlayer(name, marker) {
 
             console.log(inJson);
             allPlayers = inJson.players;
-            UpdatePlayersFromCgi();
+            UpdatePlayersSelectors();
             $('#createPlayerPanel').removeClass('show');
             $('#createPlayerPanel').addClass('hide');
             $('#newPlayer').addClass('show');
@@ -444,7 +445,7 @@ function createPlayer(name, marker) {
     }
 }
 
-function UpdatePlayersFromCgi() {
+function UpdatePlayersSelectors() {
 
     $('#select1').find('option')
         .remove()
@@ -466,6 +467,7 @@ function UpdatePlayersFromCgi() {
 
 }
 
+//select players
 function updatePlayerBySelect(selector, whichSelector, boardId){
     selectorObj = document.getElementById(selector.substr(1));
     if(selectorObj.selectedIndex == 0) return;
@@ -494,9 +496,19 @@ function updatePlayerBySelect(selector, whichSelector, boardId){
 }
 
 function updatePlayerBoard(boardId, whichBoard) {
-    $(boardId).find('name').text(player[whichBoard].name);
+    $(boardId).find('name').text(player[whichBoard].name + ' '+player[whichBoard].marker);
     $(boardId).find('win').text(player[whichBoard].stats[gameType].win);
     $(boardId).find('loss').text(player[whichBoard].stats[gameType].loss);
     $(boardId).find('tie').text(player[whichBoard].stats[gameType].tie);
+
+}
+function updateCurrentPlayers() {
+    getAllPlayers();
+
+    allPlayers.forEach(function (p) {
+       if(p.name == player[1].name) player[1] = p;
+        else if(p.name == player[2].name) player[2] = p;
+    });
+
 
 }
