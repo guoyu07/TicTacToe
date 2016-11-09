@@ -130,7 +130,7 @@ bool PlayerDao::updatePlayerScore(Player &player, char game, int result) {
     rapidjson::Document json;
     rapidjson::StringBuffer buffer;
     rapidjson::Writer<rapidjson::StringBuffer> writer(buffer);
-    rapidjson::Document::AllocatorType& allocator = json.GetAllocator();
+//    rapidjson::Document::AllocatorType& allocator = json.GetAllocator();
 //    if(!inFile.eof()) {
 // std::getline(inFile,tmp_str);
 // tmp_char = &tmp_str[0];
@@ -162,7 +162,7 @@ bool PlayerDao::updatePlayerScore(Player &player, char game, int result) {
 
             inFile.close();
             outFile.close();
-            auto success = std::rename(temp_fileName.c_str(),fileName.c_str());
+            std::rename(temp_fileName.c_str(),fileName.c_str());
            // assert(!success);
             return true;
 
