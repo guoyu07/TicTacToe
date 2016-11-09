@@ -380,24 +380,35 @@ std::string TTTController::getGameDisplay(bool isJson) {
     boardCursor.SetObject();
     std::string tmp_cursor;
 
-
-    for(unsigned int i = 0; i < 9; i++){
-        boardCursor.SetObject();
-        boardCursor.RemoveAllMembers();
-
-        Board b = lBoard.at(i);
-
-        index.SetString(std::to_string(i).c_str(),1,allocator);
-        tmp_cursor = getGameCursor(b);
-
-        winner.SetInt(determineWinner(b));
+    if(isGameRegular){
+        tmp_cursor = getGameCursor(board);
+        index.SetString("0",1,allocator);
         cursor.SetString(tmp_cursor.c_str(),tmp_cursor.length(),allocator);
+        winner.SetInt(determineWinner(board));
 
         boardCursor.AddMember("cursor",cursor,allocator);
         boardCursor.AddMember("winner",winner,allocator);
 
         json.AddMember(index,boardCursor,allocator);
-    }
+    }else
+
+        for(unsigned int i = 0; i < 9; i++){
+            boardCursor.SetObject();
+            boardCursor.RemoveAllMembers();
+
+            Board b = lBoard.at(i);
+
+            index.SetString(std::to_string(i).c_str(),1,allocator);
+            tmp_cursor = getGameCursor(b);
+
+            winner.SetInt(determineWinner(b));
+            cursor.SetString(tmp_cursor.c_str(),tmp_cursor.length(),allocator);
+
+            boardCursor.AddMember("cursor",cursor,allocator);
+            boardCursor.AddMember("winner",winner,allocator);
+
+            json.AddMember(index,boardCursor,allocator);
+        }
     rapidjson::StringBuffer buffer;
     rapidjson::Writer<rapidjson::StringBuffer> writer(buffer);
     json.Accept(writer);
@@ -421,24 +432,10 @@ std::string TTTController::getGameCursor(const Board& board) {
 
 //TODO
 std::string TTTController::getGameDisplay() {
-    std::array<Player,9> cursor = board.getCursor();
-    std::string out = "";
-    std::string hor = "-----";
-    std::string lver = "|  ";
-    std::string rver = "  |";
-    std::string ver = "  |  ";
+    if(isGameRegular) return getGameDisplay(board);
+    else
+        return  getGameDisplay(bigBoard);
 
-    // out += "\033[8A";   //Clear 8 lines up
-    out +=  "+" ; out +=  hor ; out +=  "+" ; out +=  hor ; out +=  "+" ; out +=  hor ; out +=  "+" ; out +=  "\n";
-    out +=  lver ; out +=  cursor[0].getSymbol() ; out +=  ver ; out +=  cursor[1].getSymbol() ; out +=  ver ; out +=  cursor[2].getSymbol() ; out +=  rver ; out +=  "\n";
-
-    out +=  "+" ; out +=  hor ; out +=  "+" ; out +=  hor ; out +=  "+" ; out +=  hor ; out +=  "+" ; out +=  "\n";
-    out +=  lver ; out +=  cursor[3].getSymbol() ; out +=  ver ; out +=  cursor[4].getSymbol() ; out +=  ver ; out +=  cursor[5].getSymbol() ; out +=  rver ; out +=  "\n";
-
-    out +=  "+" ; out +=  hor ; out +=  "+" ; out +=  hor ; out +=  "+" ; out +=  hor ; out +=  "+" ; out +=  "\n";
-    out +=  lver ; out +=  cursor[6].getSymbol() ; out +=  ver ; out +=  cursor[7].getSymbol() ; out +=  ver ; out +=  cursor[8].getSymbol() ; out +=  rver ; out +=  "\n";
-    out +=  "+" ; out +=  hor ; out +=  "+" ; out +=  hor ; out +=  "+" ; out +=  hor ; out +=  "+" ; out +=  "\n";
-    return out;
 }
 
 std::string TTTController::getGameDisplay(Board& board) {

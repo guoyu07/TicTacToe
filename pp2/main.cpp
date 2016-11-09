@@ -55,7 +55,7 @@ int main() {
              *
              * @return: getGameDisplay(true); determineWinner
              * */
-            std::array<std::string,9> cursor;
+
             //TODO validate json before using
 
             //parse and create new players
@@ -65,18 +65,32 @@ int main() {
             //start desired game
             tttController.startNewGame(json["gameType"].GetString()[0] == 'R');
 
-            //parse boardCursor into array
-            for(unsigned int i=0; i<9; i++){
-                cursor.at(i) = stringOf(json["cursors"][std::to_string(i).c_str()]["cursor"]);
-            }
+            if(json["gameType"].GetString()[0] == 'R'){
+                std::string cursor;
+                //parse boardCursor into string
+                cursor = stringOf(json["cursors"]["0"]["cursor"]);
 
-            // setSelection accordingly
-            for(int outer = 0; outer < 9; outer++) {
-                std::string board = cursor[outer];
-                for (int inner = 0; inner < 9; inner++) {
+                //setSelection accordingly
+                for(int inner = 0; inner < 9; inner++){
+                    if(cursor[inner] == '1') tttController.setSelection(inner, 1);
+                    else if(cursor[inner] == '2') tttController.setSelection(inner, 2);
+                }
 
-                    if (board[inner] == '1') tttController.setSelectionBB(inner, outer, 1);
-                    else if (board[inner] == '2') tttController.setSelectionBB(inner, outer, 2);
+            }else {
+                std::array<std::string,9> cursor;
+                //parse boardCursor into array
+                for (unsigned int i = 0; i < 9; i++) {
+                    cursor.at(i) = stringOf(json["cursors"][std::to_string(i).c_str()]["cursor"]);
+                }
+
+                // setSelection accordingly
+                for (int outer = 0; outer < 9; outer++) {
+                    std::string board = cursor[outer];
+                    for (int inner = 0; inner < 9; inner++) {
+
+                        if (board[inner] == '1') tttController.setSelectionBB(inner, outer, 1);
+                        else if (board[inner] == '2') tttController.setSelectionBB(inner, outer, 2);
+                    }
                 }
             }
 
