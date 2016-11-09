@@ -145,22 +145,28 @@ function setMarkerInCell(outerPos, innerPos, marker) {
 
 }
 
-function setMarkerOnBoard(outerPos,marker,winner) {
+function setMarkerOnBoard(outerPos,marker,isBoardRegular) {
+    isBoardRegular = Boolean(isBoardRegular);
     $('.outer').each(function () {
         if($(this).attr("pos") == outerPos){
             $(this).children().hide();
             $(this).text(marker);
 
-            if(currentPlayer == 1){
-                temp_char = '1';
-            }else {
-                temp_char = '2';
+            if(isBoardRegular) {
+
+                var temp_char = '0';
+                if (currentPlayer == 1) {
+                    temp_char = '1';
+                } else {
+                    temp_char = '2';
+                }
+
+                var temp_cur = cursors[0].cursor;
+
+                temp_cur = temp_cur.substring(0, outerPos) + temp_char + temp_cur.substring(outerPos + 1);
+                cursors[0].cursor = temp_cur;
+
             }
-
-            var temp_cur = cursors[0].cursor;
-
-            temp_cur = temp_cur.substring(0,outerPos) + temp_char + temp_cur.substring(outerPos+1);
-            cursors[0].cursor = temp_cur;
 
             $(this).addClass('innerWinner');
             if(winner == 3) $(this).addClass('innerTie');
@@ -335,7 +341,7 @@ function getAttentionOfB(board, set) {
             
             var onClickHandler =  function (event){
                 //$(div).text(marker);
-                setMarkerOnBoard(outerPos,player[currentPlayer].marker);
+                setMarkerOnBoard(outerPos,player[currentPlayer].marker, true);
                 console.log("Board:" + outerPos);
                 console.log(cursors);
                 //$(this).off('click',onClickHandler);
@@ -437,7 +443,10 @@ function processUltimate() {
     //Mark board  //TODO may be cell too?
     for(var i=0; i<9; i++){
         //Set Marker of player[winner]
-        if(cursors[i].winner) setMarkerOnBoard(i,player[cursors[i].winner].marker,cursors[i].winner);
+        if(cursors[i].winner){
+            console.log('SetMarkerOnBoard i: '+i+', marker: ' +player[cursors[i].winner].marker+', winner: '+cursors[i].winner);
+            setMarkerOnBoard(i,player[cursors[i].winner].marker,false);
+        }
     }
 
     //Did anyone win?
