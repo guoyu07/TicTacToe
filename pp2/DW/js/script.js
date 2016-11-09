@@ -66,21 +66,7 @@ var recent ={
 };
 
 //Cursors
-var cursors = {
-    0: {"cursor" : "111000000", "winner" : 0},
-    1: {"cursor" : "111000000", "winner" : 0},
-    2: {"cursor" : "110000000", "winner" : 0},
-    3: {"cursor" : "000000000", "winner" : 0},
-    4: {"cursor" : "000000000", "winner" : 0},
-    5: {"cursor" : "000000000", "winner" : 0},
-    6: {"cursor" : "000000000", "winner" : 0},
-    7: {"cursor" : "000000000", "winner" : 0},
-    8: {"cursor" : "000000000", "winner" : 0}
-};
-
-drawBorders('.outer');
-drawBorders('.inner');
-
+var cursors = {};
 
 function drawBorders(box) {
     $(box).each(function() {
@@ -115,7 +101,7 @@ function highlightBox(pos,set){
     $('.outer').each(function() {
         if($(this).attr('pos') == pos){
             if(set)  $(this).addClass('boxHighlight');
-              else  $(this).removeClass('boxHighlight');
+            else  $(this).removeClass('boxHighlight');
         }
     });
 
@@ -128,56 +114,58 @@ function highlightBox(pos,set){
 function setMarkerInCell(outerPos, innerPos, marker) {
     outerPos = Number(outerPos);
     innerPos = Number(innerPos);
-$('.outer').each(function () {
-    //Every 'outer' div comes-into $this
-    if($(this).attr("pos") == outerPos){
-        //Board at @outerPos comes-into $this; But we have 3 '.rows' <div>s inside each board
-        $(".row",this).children().each(function () {
-            //All 9 '.inner' <div>s come-into $this
-            if($(this).attr("pos") == innerPos){
-                //<div> at @innerPos comes-into $this
-                $(this).text(marker);
-                //Update local @cursors
-                var temp_char = '0';
+    $('.outer').each(function () {
+        //Every 'outer' div comes-into $this
+        if($(this).attr("pos") == outerPos){
+            //Board at @outerPos comes-into $this; But we have 3 '.rows' <div>s inside each board
+            $(".row",this).children().each(function () {
+                //All 9 '.inner' <div>s come-into $this
+                if($(this).attr("pos") == innerPos){
+                    //<div> at @innerPos comes-into $this
+                    $(this).text(marker);
+                    //Update local @cursors
+                    var temp_char = '0';
 
-                if(currentPlayer == 1){
-                    temp_char = '1';
-                }else {
-                    temp_char = '2';
+                    if(currentPlayer == 1){
+                        temp_char = '1';
+                    }else {
+                        temp_char = '2';
+                    }
+
+                    var temp_cur = cursors[outerPos].cursor;
+
+                    temp_cur = temp_cur.substring(0,innerPos) + temp_char + temp_cur.substring(innerPos+1);
+                    cursors[outerPos].cursor = temp_cur;
                 }
-
-                var temp_cur = cursors[outerPos].cursor;
-
-                temp_cur = temp_cur.substring(0,innerPos) + temp_char + temp_cur.substring(innerPos+1);
-                cursors[outerPos].cursor = temp_cur;
-            }
-        })
-    }
-})
+            })
+        }
+    })
 
 }
 
-function setMarkerOnBoard(outerPos,marker) {
-$('.outer').each(function () {
-    if($(this).attr("pos") == outerPos){
-        $(this).children().hide();
-        $(this).text(marker);
-        $(this).addClass('innerWinner');
-    }
-})
+function setMarkerOnBoard(outerPos,marker,winner) {
+    $('.outer').each(function () {
+        if($(this).attr("pos") == outerPos){
+            $(this).children().hide();
+            $(this).text(marker);
+            $(this).addClass('innerWinner');
+            if(winner == 3) $(this).addClass('innerTie');
+        }
+    })
 
 }
 
 function togglePlayer(){
+    var focus = 'bs-callout-primary';
     if(currentPlayer == 1){
         currentPlayer = 2;
-        $('#playerBoard1').removeClass('focus');
-        $('#playerBoard2').addClass('focus');
+        $('#playerBoard1').removeClass(focus);
+        $('#playerBoard2').addClass(focus);
     }
     else {
         currentPlayer = 1;
-        $('#playerBoard2').removeClass('focus');
-        $('#playerBoard1').addClass('focus');
+        $('#playerBoard2').removeClass(focus);
+        $('#playerBoard1').addClass(focus);
     }
     console.log(currentPlayer);
 }
@@ -186,13 +174,91 @@ function togglePlayer(){
 
 //***********Play starts here ********************//
 
+initializeGame();
+
+function initializeGame() {
+
+    player = {
+        1:{ "name": "RV2",
+            "marker" :'o',
+            "stats" : {
+                "regular" :{
+                    "win" :0,
+                    "loss" : 0,
+                    "tie" : 0
+                },
+                "ultimate" :{
+                    "win" :0,
+                    "loss" : 0,
+                    "tie" : 0
+                }
+            }
+
+        }, 2:{"name": "SW",
+            "marker" :'w',
+            "stats" : {
+                "regular" :{
+                    "win" :0,
+                    "loss" : 0,
+                    "tie" : 0
+                },
+                "ultimate" :{
+                    "win" :0,
+                    "loss" : 0,
+                    "tie" : 0
+                }
+            }
+
+        },3:{
+            "marker" : "X" //Game tie = 3
+        }
+
+    };
+
+    arePlayersSet = {
+        1:false,
+        2:false
+    };
+
+    isGameRunning = false;
+
+    allPlayers = {};
+    currentPlayer = 1;
+
+    winner = 0;
+    recent ={
+        "outerPos" : -1,
+        "innerPos" : -1
+    };
+
+    cursors = {
+        0: {"cursor" : "000000000", "winner" : 0},
+        1: {"cursor" : "000000000", "winner" : 0},
+        2: {"cursor" : "000000000", "winner" : 0},
+        3: {"cursor" : "000000000", "winner" : 0},
+        4: {"cursor" : "000000000", "winner" : 0},
+        5: {"cursor" : "000000000", "winner" : 0},
+        6: {"cursor" : "000000000", "winner" : 0},
+        7: {"cursor" : "000000000", "winner" : 0},
+        8: {"cursor" : "000000000", "winner" : 0}
+    };
+
+    drawBorders('.outer');
+    drawBorders('.inner');
+    getAllPlayers();
+}
+
 function startGame() {
     //clear screen
-    $('#createPlayer').addClass('hide');
+    $('#createPlayer').children().addClass('hide');
 
     //
     isGameRunning = true;
-    currentPlayer = 1;
+
+    //to focus initial player
+    currentPlayer = 2;
+    togglePlayer();
+
     lockAllBoard(false); //unlocks all board pieces
 }
 //getAttentionOf(1,false);
@@ -305,16 +371,15 @@ function inform(){
             //Mark board  //TODO may be cell too?
             for(var i=0; i<9; i++){
                 //Set Marker of player[winner]
-                if(cursors[i].winner) setMarkerOnBoard(i,player[cursors[i].winner].marker);
+                if(cursors[i].winner) setMarkerOnBoard(i,player[cursors[i].winner].marker,cursors[i].winner);
             }
 
             //Did anyone win?
             if(winner){
                 //Declare
                 console.log("Game won by : " + winner); //TODO
-                updateCurrentPlayers();
-                updatePlayerBoard('#playerBoard1',1);
-                updatePlayerBoard('#playerBoard2',2);
+                getAllPlayers();
+                declareWinner();
             }else {
 
                 //whats next board?
@@ -339,7 +404,7 @@ function nextBoard() {
     //and
     //next board status i.e. if no room is available
 
-   // var outerPos = Number(recent.outerPos);
+    // var outerPos = Number(recent.outerPos);
     var innerPos = Number(recent.innerPos);
 
     if(cursors[innerPos].winner){
@@ -360,7 +425,20 @@ function lockAllBoard(lock) {
     }
 }
 
-
+function declareWinner() {
+    var p1 = '#playerBoard1';
+    var p2 = '#playerBoard2';
+    $(p1).removeClass('bs-callout-primary');
+    $(p2).removeClass('bs-callout-primary');
+    switch(winner){
+        case 1: $(p1).addClass('bs-callout-success');
+            $(p2).addClass('bs-callout-danger');break;
+        case 2: $(p1).addClass('bs-callout-danger');
+            $(p2).addClass('bs-callout-success');break;
+        case 3: $(p1).addClass('bs-callout-warning');
+            $(p2).addClass('bs-callout-warning');break;
+    }
+}
 
 
 //***********Players***********************//
@@ -375,8 +453,6 @@ sel1.addEventListener('change',function () {
 sel2.addEventListener('change',function () {
     updatePlayerBySelect('#select2',2,'#playerBoard2');
 });
-
-getAllPlayers();
 
 function getAllPlayers(){
     var outJson = {};
@@ -395,6 +471,9 @@ function getAllPlayers(){
             console.log(inJson);
             allPlayers = inJson.players;
             UpdatePlayersSelectors();
+            updateCurrentPlayers();
+            updatePlayerBoard('#playerBoard1',1);
+            updatePlayerBoard('#playerBoard2',2);
         }
     };
 
@@ -496,19 +575,29 @@ function updatePlayerBySelect(selector, whichSelector, boardId){
 }
 
 function updatePlayerBoard(boardId, whichBoard) {
-    $(boardId).find('name').text(player[whichBoard].name + ' '+player[whichBoard].marker);
+    $(boardId).find('name').text(player[whichBoard].name + ' ('+player[whichBoard].marker + ')');
     $(boardId).find('win').text(player[whichBoard].stats[gameType].win);
     $(boardId).find('loss').text(player[whichBoard].stats[gameType].loss);
     $(boardId).find('tie').text(player[whichBoard].stats[gameType].tie);
+    console.log(boardId,whichBoard);
 
 }
-function updateCurrentPlayers() {
-    getAllPlayers();
 
-    allPlayers.forEach(function (p) {
-       if(p.name == player[1].name) player[1] = p;
-        else if(p.name == player[2].name) player[2] = p;
-    });
+function updateCurrentPlayers() {
+    if(!isGameRunning) return;
+    for(var i=0; i<allPlayers.length; i++){
+
+        if(allPlayers[i].name == player[1].name) {
+            console.log(allPlayers[i], player[1]);
+            player[1] = allPlayers[i];
+            console.log(player);
+            console.log(allPlayers[i] == player[1]);
+        }
+        if(allPlayers[i].name == player[2].name){
+            console.log("p.name:"+allPlayers[i].name+', p1.name:'+player[2].name);
+            player[2] = allPlayers[i];
+        }
+    }
 
 
 }

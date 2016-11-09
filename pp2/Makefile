@@ -34,10 +34,10 @@ TTTController.o: ./controller/TTTController.cpp
 	${CXX} ${CFLAGS} -c ./controller/TTTController.cpp ./controller/TTTController.h
 
 sampleTest.o:	sampleTest.cpp
-	${CXX} ${CFLAGS} -c sampleTest.cpp
+	${CXX} ${CFLAGS} -c sampleTest.cpp common.h
 
 clean:
 	rm -rf *.o
 	rm -rf *~
-	rm -rf model/*.gch controller/*.gch
+	rm -rf model/*.gch controller/*.gch *.gch
 	rm -rf run ttt.cgi test.cgi

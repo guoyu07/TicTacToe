@@ -46,11 +46,12 @@ void TTTController::createPlayer(std::string playerJsonObject) {
 
     if(json.HasMember("name") &&
             json.HasMember("marker") &&
-            json.HasMember("playerNum") &&
             json["name"].IsString() &&
-            json["marker"].IsString() &&
-            json["playerNum"].IsInt())
-    createPlayer(json["name"].GetString(),json["marker"].GetString(),json["playerNum"].GetInt());
+            json["marker"].IsString())
+        if(json.HasMember("playerNum") && json["playerNum"].IsInt())
+            createPlayer(json["name"].GetString(),json["marker"].GetString(),json["playerNum"].GetInt());
+        else
+            createPlayer(json["name"].GetString(),json["marker"].GetString());
     else
         std::cout << "Invalid JSON!" << "@TTTController::createPlayer" << std::endl;
 
