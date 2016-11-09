@@ -4,10 +4,13 @@
     <meta charset="utf-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="description" content="Try crashing it if you can!">
+    <meta name="keywords" content="R">
+     <link rel="shortcut icon" type="image/png" href="https://people.cs.clemson.edu/~rchowda/images/android-desktop.png"/>
     <title>TicTacToe Game</title>
     <!-- Bootstrap -->
     <link href="css/bootstrap.css" rel="stylesheet">
-    <link href="css/style.css" rel="stylesheet" type="text/css">
+    <link href="css/style_old.css" rel="stylesheet" type="text/css">
     <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -37,7 +40,7 @@
         <!-- /.container-fluid -->
     </nav>
 </div>
-<div class="playerSelection row">
+<div class="container-fluid">
     <div class="col-md-3 col-lg-3 col-sm-3 col-xs-12 form-group" id="player1">
         <div id="playerSelect1" class="">
             <div class="btn-group dropup">
@@ -85,23 +88,18 @@
         </div>
     </div>
 </div>
-<div class="container-fluid mainTable row">
-    <div class="mainTable col-md-6 col-md-offset-3">
-        <div class="row outerRow">
-            <div class="col-md-4 col-lg-4 col-sm-4 col-xs-4 outer" pos=" 0">&nbsp;</div>
-            <div class="col-md-4 col-lg-4 col-sm-4 col-xs-4 outer" pos=" 1">&nbsp;</div>
-            <div class="col-md-4 col-lg-4 col-sm-4 col-xs-4 outer" pos=" 2">&nbsp;</div>
-        </div>
-        <div class="row outerRow">
-            <div class="col-md-4 col-lg-4 col-sm-4 col-xs-4 outer" pos=" 3">&nbsp;</div>
-            <div class="col-md-4 col-lg-4 col-sm-4 col-xs-4 outer" pos=" 4">&nbsp;</div>
-            <div class="col-md-4 col-lg-4 col-sm-4 col-xs-4 outer" pos=" 5">&nbsp;</div>
-        </div>
-        <div class="row outerRow">
-            <div class="col-md-4 col-lg-4 col-sm-4 col-xs-4 outer" pos=" 6">&nbsp;</div>
-            <div class="col-md-4 col-lg-4 col-sm-4 col-xs-4 outer" pos=" 7">&nbsp;</div>
-            <div class="col-md-4 col-lg-4 col-sm-4 col-xs-4 outer" pos=" 8">&nbsp;</div>
-        </div>
+<div class="container-fluid">
+   <div id="table" class="mainTable col-md-6 col-md-offset-3">
+      <div id ="1" class="col-md-4">&nbsp;</div>
+      <div id ="2" class="col-md-4">&nbsp;</div>
+      <div id ="3" class="col-md-4">&nbsp;</div>
+      <div id ="4" class="col-md-4">&nbsp;</div>
+      <div id ="5" class="col-md-4">&nbsp;</div>
+      <div id ="6" class="col-md-4">&nbsp;</div>
+      <div id ="7" class="col-md-4">&nbsp;</div>
+      <div id ="8" class="col-md-4">&nbsp;</div>
+      <div id ="9" class="col-md-4">&nbsp;</div>
+  </div>
 </div>
 <script src="https://code.jquery.com/jquery-1.7.2.min.js"></script>
 <script src="js/jquery-1.11.3.min.js"></script>
