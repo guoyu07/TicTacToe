@@ -1,6 +1,8 @@
 // JavaScript Document
 var cgiPath = "cgi-bin/ttt.cgi";
-var gameType = "ultimate";
+var gameType;
+if($('meta[name="keywords"]').attr('content') == 'R') gameType = "regular";
+else gameType = "ultimate";
 //start-test //TODO delete
 // $('.outer').each(function () {
 //     if($(this).attr("pos") == 2){
@@ -148,6 +150,18 @@ function setMarkerOnBoard(outerPos,marker,winner) {
         if($(this).attr("pos") == outerPos){
             $(this).children().hide();
             $(this).text(marker);
+
+            if(currentPlayer == 1){
+                temp_char = '1';
+            }else {
+                temp_char = '2';
+            }
+
+            var temp_cur = cursors[0].cursor;
+
+            temp_cur = temp_cur.substring(0,outerPos) + temp_char + temp_cur.substring(outerPos+1);
+            cursors[0].cursor = temp_cur;
+
             $(this).addClass('innerWinner');
             if(winner == 3) $(this).addClass('innerTie');
         }
@@ -250,7 +264,9 @@ function initializeGame() {
 
 function startGame() {
     //clear screen
-    $('#createPlayer').children().addClass('hide');
+    $('#createPlayer').children()
+        .removeClass('show')
+        .addClass('hide');
 
     //
     isGameRunning = true;
@@ -261,7 +277,7 @@ function startGame() {
 
     lockAllBoard(false); //unlocks all board pieces
 }
-//getAttentionOf(1,false);
+//getAttentionOfBB(1,false);
 
 
 
@@ -270,7 +286,7 @@ function startGame() {
 
 //***********Play ends here ********************//
 
-function getAttentionOf(board,set) {
+function getAttentionOfBB(board, set) {
     var outerPos = Number(board);
     set = Boolean(set);
     highlightBox(board,set);
@@ -311,6 +327,43 @@ function getAttentionOf(board,set) {
     })
 }
 
+function getAttentionOfB(board, set) {
+    var outerPos = Number(board);
+    set = Boolean(set);
+    $('.outer').each(function () {
+        if($(this).attr("pos") == board){
+            
+            var onClickHandler =  function (event){
+                //$(div).text(marker);
+                setMarkerOnBoard(outerPos,player[currentPlayer].marker);
+                console.log("Board:" + outerPos);
+                console.log(cursors);
+                //$(this).off('click',onClickHandler);
+                //update @recent variable
+                recent.outerPos = outerPos;
+
+                //inform() will take care of locking and unlocking
+                inform();
+
+                togglePlayer();
+            };
+            
+            
+            console.log("Is board "+board+" locked? "+set);
+            //TODO donot unlock if cursor at @innerPos is '0'
+            if(set && cursors[0].cursor[outerPos] == 0){
+                console.log("Unlocked"+board);
+                $(this).on('click',onClickHandler);
+            }
+            else {
+                console.log("Locked"+board);
+                // $(this).off('click',onClickHandler);
+                $(this).unbind('click');
+            }
+        }
+    })
+}
+
 function getCursor(boardNumber) {
     boardNumber = 0;
     //innerPos = index of @boardNumber in game
@@ -335,7 +388,7 @@ function inform(){
     //Get game cursors**********************************************//*//
     var request = {                                                 //*//
         "identifier" : "P",                                         //*//
-        "gameType" : "U",                                           //*//
+        "gameType" : "",                                           //*//
         "player1" :{                                                //*//
             "name": "",                                             //*//
             "marker": ""                                            //*//
@@ -346,6 +399,9 @@ function inform(){
         },                                                          //*//
         "cursors": {}                                               //*//
     };                                                              //*//
+    if(gameType == "regular")
+        request.gameType = "R";
+    else request.gameType = "U";
     request.player1 = player[1];                                    //*//
     request.player2 = player[2];                                    //*//
     request.cursors = cursors;                                      //*//
@@ -368,34 +424,56 @@ function inform(){
             cursors = response.cursors;
             winner = Number(response.winner);
 
-            //Mark board  //TODO may be cell too?
-            for(var i=0; i<9; i++){
-                //Set Marker of player[winner]
-                if(cursors[i].winner) setMarkerOnBoard(i,player[cursors[i].winner].marker,cursors[i].winner);
-            }
+            if(gameType == "regular") processRegular();
+            else processUltimate();
 
-            //Did anyone win?
-            if(winner){
-                //Declare
-                console.log("Game won by : " + winner); //TODO
-                getAllPlayers();
-                declareWinner();
-            }else {
-
-                //whats next board?
-                var toBeUnlocked = nextBoard();
-                console.log("toBeUnlocked : " + toBeUnlocked);
-                //unlock board accordingly
-                if(toBeUnlocked<0){
-                    lockAllBoard(false);
-                }else{
-                    getAttentionOf(toBeUnlocked,true);
-                }
-            }
         }
 
     };
 
+}
+
+function processUltimate() {
+    //Mark board  //TODO may be cell too?
+    for(var i=0; i<9; i++){
+        //Set Marker of player[winner]
+        if(cursors[i].winner) setMarkerOnBoard(i,player[cursors[i].winner].marker,cursors[i].winner);
+    }
+
+    //Did anyone win?
+    if(winner){
+        //Declare
+        console.log("Game won by : " + winner); //TODO
+        getAllPlayers();
+        declareWinner();
+    }else {
+
+        //whats next board?
+        var toBeUnlocked = nextBoard();
+        console.log("toBeUnlocked : " + toBeUnlocked);
+        //unlock board accordingly
+        if(toBeUnlocked<0){
+            lockAllBoard(false);
+        }else{
+            getAttentionOfBB(toBeUnlocked,true);
+        }
+    }
+}
+
+function processRegular() {
+
+    //Did anyone win?
+    if(winner){
+        //Declare
+        console.log("Game won by : " + winner); //TODO
+        getAllPlayers();
+        declareWinner();
+    }else {
+        for(var i=0; i<9; i++){
+            if(cursors[0].cursor[i] == 0)
+                getAttentionOfB(i,true);
+        }
+    }
 }
 
 
@@ -421,7 +499,15 @@ function lockAllBoard(lock) {
     console.log("lock:"+ lock);
     console.log("!lock:"+ !lock);
     for (var i = 0; i < 9; i++) {
-        getAttentionOf(i,!lock);
+        if(gameType == "regular"){
+            console.log('Unlock R');
+            getAttentionOfB(i,!lock);
+        }
+        else {
+            console.log('Unlock U');
+            getAttentionOfBB(i, !lock);
+        }
+
     }
 }
 
@@ -579,7 +665,6 @@ function updatePlayerBoard(boardId, whichBoard) {
     $(boardId).find('win').text(player[whichBoard].stats[gameType].win);
     $(boardId).find('loss').text(player[whichBoard].stats[gameType].loss);
     $(boardId).find('tie').text(player[whichBoard].stats[gameType].tie);
-    console.log(boardId,whichBoard);
 
 }
 
