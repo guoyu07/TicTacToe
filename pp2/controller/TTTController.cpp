@@ -430,7 +430,6 @@ std::string TTTController::getGameCursor(const Board& board) {
     return cursorStr;
 }
 
-//TODO
 std::string TTTController::getGameDisplay() {
     if(isGameRegular) return getGameDisplay(board);
     else

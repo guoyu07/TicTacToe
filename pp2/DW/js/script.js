@@ -196,6 +196,8 @@ function togglePlayer(){
 
 initializeGame();
 
+$('.mainTable').addClass('inactive');
+
 function initializeGame() {
 
     player = {
@@ -281,6 +283,9 @@ function startGame() {
     currentPlayer = 2;
     togglePlayer();
 
+    $('.mainTable').removeClass('inactive')
+        .addClass('active');
+
     lockAllBoard(false); //unlocks all board pieces
 }
 //getAttentionOfBB(1,false);
@@ -318,7 +323,7 @@ function getAttentionOfBB(board, set) {
                     togglePlayer();
                 };
                 console.log("Is board "+board+" locked? "+set);
-                //TODO donot unlock if cursor at @innerPos is '0'
+                //TODO donot unlock if cursor at @innerPos is not '0'
                 if(set && cursors[outerPos].cursor[innerPos] == 0){
                     console.log("Unlocked"+board);
                     $(this).on('click',onClickHandler);
@@ -521,6 +526,8 @@ function lockAllBoard(lock) {
 }
 
 function declareWinner() {
+    $('.mainTable').removeClass('active')
+        .addClass('inactive');
     var p1 = '#playerBoard1';
     var p2 = '#playerBoard2';
     $(p1).removeClass('bs-callout-primary');
@@ -565,6 +572,7 @@ function getAllPlayers(){
 
             console.log(inJson);
             allPlayers = inJson.players;
+            calculateMostWins();
             UpdatePlayersSelectors();
             updateCurrentPlayers();
             updatePlayerBoard('#playerBoard1',1);
@@ -694,4 +702,31 @@ function updateCurrentPlayers() {
     }
 
 
+}
+
+function calculateMostWins() {
+    var playersList = [];
+    var i=0;
+    for(i=0; i<allPlayers.length; i++){
+
+        playersList.push({name:allPlayers[i].name,win:allPlayers[i].stats[gameType].win});
+    }
+    playersList.sort(function(a,b){return a.win - b.win});
+
+    var top = playersList[--i].win;
+
+    $('#mostWins').find('li')
+        .remove()
+        .end()
+        .append('<li class="disabled"><a href="#"> HighScore - '+top+'</a></li>');
+
+    while (top <= playersList[i].win && i>=0) {
+
+        console.log('player_name:',playersList[i].name);
+        console.log('top:',top, 'win:',playersList[i].win,'condition:', top <= playersList[i].win);
+        $('#mostWins').append('<li><a href="#">'+playersList[i].name+'</a></li>');
+        i--;
+    }
+
+    console.log('playersList:',playersList);
 }
