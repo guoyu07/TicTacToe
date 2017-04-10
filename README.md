@@ -1,4 +1,4 @@
-#Ultimate Tic-Tac-Toe web game
+# Ultimate Tic-Tac-Toe web game
 
 Regular tic-tac-toe 3x3 and ultimate tic-tac-toe 9x9
 
